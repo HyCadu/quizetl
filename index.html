@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Questões - Games Provas</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuração personalizada do Tailwind com paleta de cores -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'azul-marinho': '#1e3a8a',
+                        'amora': '#4c1d95',
+                        'azul-claro': '#3b82f6',
+                        'roxo-claro': '#8b5cf6'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos personalizados para os links de imagem */
+        .link-imagem {
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        .link-imagem:hover {
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* Animação suave para as imagens */
+        .imagem-questao {
+            transition: all 0.3s ease;
+        }
+        .imagem-questao:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Estilo para o summary */
+        details summary {
+            list-style: none;
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        
+        /* Ajustes adicionais para melhorar visualização em mobile */
+        @media (max-width: 640px) {
+            #pergunta-texto {
+                line-height: 1.4;
+                letter-spacing: 0.01em;
+                font-size: 0.95rem;
+            }
+            
+            /* Melhora espaçamento vertical em telas pequenas */
+            .space-y-4 > :not([hidden]) ~ :not([hidden]) {
+                margin-top: 0.75rem;
+            }
+            
+            /* Ajusta o padding das opções em telas pequenas */
+            #opcoes-resposta button {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-azul-marinho to-amora min-h-screen">
+    <!-- Container principal do jogo -->
+    <div id="app" class="container mx-auto px-4 py-8">
+        
+        <!-- Menu inicial -->
+        <div id="menu-inicial" class="text-center">
+            <!-- Título principal -->
+            <h1 class="text-4xl md:text-6xl font-bold text-yellow-500 mb-4 drop-shadow-lg">
+                QUIZ OLAP e ETL  - JAMES
+            </h1>
+            <p class="text-xl text-blue-200 mb-12 font-light">
+               Desevolvido por: Cadu Kar Alho
+            </p>
+            
+            <!-- Botões de seleção de categoria -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+                <!-- Botão para questões UA -->
+                <button id="btn-ua" class="bg-white/20 backdrop-blur-lg hover:bg-white/30 transition-all duration-300 rounded-2xl p-8 border border-white/30 shadow-2xl transform hover:scale-105 hover:shadow-3xl">
+                    <div class="text-6xl mb-4">🎓</div>
+                    <h2 class="text-2xl font-bold text-white mb-3">Questões UA</h2>
+                    <p class="text-blue-200 text-sm">Perguntas das Unidades de Aprendizagem</p>
+                </button>
+                
+                <!-- Botão para questões baseadas em slides -->
+                <button id="btn-slides" class="bg-white/20 backdrop-blur-lg hover:bg-white/30 transition-all duration-300 rounded-2xl p-8 border border-white/30 shadow-2xl transform hover:scale-105 hover:shadow-3xl">
+                    <div class="text-6xl mb-4">📚</div>
+                    <h2 class="text-2xl font-bold text-white mb-3">Questões Bea Stein</h2>
+                    <p class="text-blue-200 text-sm">Perguntas baseadas no Resumo da Bea Stein</p>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tela do jogo (inicialmente oculta) -->
+        <div id="tela-jogo" class="hidden">
+            <!-- Header com informações do jogo -->
+            <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 mb-8 border border-white/20">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <!-- Informações da categoria e progresso -->
+                    <div class="text-white mb-4 md:mb-0">
+                        <h2 id="categoria-atual" class="text-2xl font-bold"></h2>
+                        <p id="contador-questao" class="text-blue-200"></p>
+                    </div>
+                    
+                    <!-- Barra de progresso -->
+                    <div class="w-full md:w-64">
+                        <div class="bg-white/20 rounded-full h-3">
+                            <div id="barra-progresso" class="bg-gradient-to-r from-azul-claro to-roxo-claro h-3 rounded-full transition-all duration-500"></div>
+                        </div>
+                        <p id="texto-progresso" class="text-white text-sm mt-2 text-center"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Container da questão -->
+            <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-4 md:p-8 border border-white/20 shadow-2xl">
+                <!-- Pergunta -->
+                <div class="mb-8">
+                    <h3 id="pergunta-texto" class="text-base md:text-xl font-semibold text-white leading-relaxed"></h3>
+                </div>
+
+                <!-- Opções de resposta -->
+                <div id="opcoes-resposta" class="space-y-4 mb-8">
+                    <!-- As opções serão inseridas dinamicamente pelo JavaScript -->
+                </div>
+
+                <!-- Botão para próxima questão -->
+                <div id="area-botao-proximo" class="hidden text-center">
+                    <button id="btn-proximo" class="bg-gradient-to-r from-azul-claro to-roxo-claro hover:from-azul-marinho hover:to-amora text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        Próxima Questão
+                    </button>
+                </div>
+
+                <!-- Área de justificativa -->
+                <div id="area-justificativa" class="hidden mt-8 p-6 bg-white/5 rounded-xl border border-white/20">
+                    <h4 class="text-lg font-semibold text-white mb-3">💡 Justificativa:</h4>
+                    <p id="texto-justificativa" class="text-blue-200 leading-relaxed"></p>
+                </div>
+            </div>
+
+            <!-- Botão para voltar ao menu -->
+            <div class="text-center mt-8">
+                <button id="btn-voltar-menu" class="bg-white/20 hover:bg-white/30 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 border border-white/30">
+                    ← Voltar ao Menu
+                </button>
+            </div>
+        </div>
+
+        <!-- Tela de resultados finais -->
+        <div id="tela-resultados" class="hidden text-center">
+            <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl max-w-md mx-auto">
+                <div class="text-6xl mb-6">🏆</div>
+                <h2 class="text-3xl font-bold text-white mb-4">Quiz Concluído!</h2>
+                <div id="resultado-final" class="text-xl text-blue-200 mb-6"></div>
+                <button id="btn-reiniciar" class="bg-gradient-to-r from-azul-claro to-roxo-claro hover:from-azul-marinho hover:to-amora text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105">
+                    Jogar Novamente
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script principal do jogo -->
+    <script src="script.js"></script>
+</body>
+</html>
