@@ -171,7 +171,7 @@
             padding: 1rem;
             text-align: left;
             background: #1f2937;
-            border: 1px solid #4b5563;
+            border: 2px solid #4b5563;
             border-radius: 0.75rem;
             color: white;
             font-weight: 500;
@@ -180,23 +180,30 @@
             font-size: 1rem;
         }
         
-        .btn-resposta:hover {
+        .btn-resposta:hover:not(.desabilitado) {
             background: #374151;
+            border-color: #6b7280;
         }
         
         .btn-resposta.correta {
-            background: #065f46;
-            border-color: #10b981;
+            background: #065f46 !important;
+            border-color: #10b981 !important;
+            border-width: 3px;
         }
         
         .btn-resposta.incorreta {
-            background: #7f1d1d;
-            border-color: #dc2626;
+            background: #7f1d1d !important;
+            border-color: #dc2626 !important;
+            border-width: 3px;
         }
         
         .btn-resposta.desabilitado {
-            opacity: 0.5;
+            opacity: 0.7;
             cursor: not-allowed;
+        }
+        
+        .btn-resposta.desabilitado:not(.correta):not(.incorreta) {
+            opacity: 0.4;
         }
         
         .letra-opcao {
@@ -208,6 +215,19 @@
             text-align: center;
             line-height: 2rem;
             margin-right: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-resposta.correta .letra-opcao {
+            background: #10b981;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .btn-resposta.incorreta .letra-opcao {
+            background: #dc2626;
+            color: white;
+            font-weight: bold;
         }
         
         /* Imagens nas respostas */

@@ -232,31 +232,38 @@ function selecionarResposta(respostaSelecionada, botaoClicado) {
     const questaoAtual = questoesEmbaralhadas[indiceQuestaoAtual];
     const acertou = respostaSelecionada === questaoAtual.respostaCorreta;
     
+    // Desabilitar todos os botões primeiro
+    const todosBotoes = opcoesResposta.querySelectorAll('.btn-resposta');
+    todosBotoes.forEach(botao => {
+        botao.classList.add('desabilitado');
+        botao.style.pointerEvents = 'none';
+    });
+    
     if (acertou) {
         pontuacao++;
         botaoClicado.classList.add('correta');
+        botaoClicado.classList.remove('incorreta');
     } else {
         botaoClicado.classList.add('incorreta');
+        botaoClicado.classList.remove('correta');
         
-        // Destacar resposta correta
-        const botoes = opcoesResposta.querySelectorAll('.btn-resposta');
-        botoes.forEach(botao => {
-            const textoCompleto = botao.textContent || botao.innerText;
-            if (textoCompleto.includes(questaoAtual.respostaCorreta) || 
-                botao.querySelector('img')?.src === questaoAtual.respostaCorreta) {
+        // Encontrar e destacar a resposta correta
+        todosBotoes.forEach(botao => {
+            // Pegar o conteúdo do botão (texto ou URL da imagem)
+            const imgElement = botao.querySelector('img');
+            const conteudoBotao = imgElement ? imgElement.src : botao.textContent.trim();
+            
+            // Remover a letra da opção do texto para comparação
+            const textoLimpo = botao.textContent.replace(/^[A-E]\s*/, '').trim();
+            
+            if (conteudoBotao === questaoAtual.respostaCorreta || textoLimpo === questaoAtual.respostaCorreta) {
                 botao.classList.add('correta');
+                botao.classList.remove('incorreta');
             }
         });
     }
     
-    // Desabilitar todos os botões
-    const todosBotoes = opcoesResposta.querySelectorAll('.btn-resposta');
-    todosBotoes.forEach(botao => {
-        botao.classList.add('desabilitado');
-        botao.style.cursor = 'not-allowed';
-    });
-    
-    // Mostrar justificativa e botão
+    // Mostrar justificativa e botão próximo
     textoJustificativa.textContent = questaoAtual.justificativa;
     areaJustificativa.classList.remove('hidden');
     areaBotaoProximo.classList.remove('hidden');
