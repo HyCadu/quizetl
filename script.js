@@ -23,7 +23,6 @@ const menuInicial = document.getElementById('menu-inicial');
 const telaJogo = document.getElementById('tela-jogo');
 const telaResultados = document.getElementById('tela-resultados');
 const btnUA = document.getElementById('btn-ua');
-const btnSlides = document.getElementById('btn-slides');
 const btnProximo = document.getElementById('btn-proximo');
 const btnVoltarMenu = document.getElementById('btn-voltar-menu');
 const btnReiniciar = document.getElementById('btn-reiniciar');
@@ -55,7 +54,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Jogo inicializado com sucesso!');
     } catch (error) {
         console.error('Erro ao inicializar o jogo:', error);
-        alert('Erro ao carregar as questões. Verifique se o arquivo questoes.json está disponível.');
     }
 });
 
@@ -82,9 +80,8 @@ async function carregarQuestoes() {
  * Define todos os eventos de clique e interação do usuário
  */
 function configurarEventListeners() {
-    // Botões do menu inicial
+    // Botão do menu inicial
     btnUA.addEventListener('click', () => iniciarJogo('UA'));
-    btnSlides.addEventListener('click', () => iniciarJogo('slide'));
     
     // Botões da tela de jogo
     btnProximo.addEventListener('click', proximaQuestao);
@@ -92,6 +89,21 @@ function configurarEventListeners() {
     
     // Botão de reiniciar
     btnReiniciar.addEventListener('click', voltarAoMenu);
+}
+
+/**
+ * EMBARALHAR ARRAY
+ * Embaralha os elementos de um array usando o algoritmo Fisher-Yates
+ * @param {Array} array - Array a ser embaralhado
+ * @returns {Array} - Array embaralhado
+ */
+function embaralharArray(array) {
+    const arrayEmbaralhado = [...array]; // Cria uma cópia do array
+    for (let i = arrayEmbaralhado.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arrayEmbaralhado[i], arrayEmbaralhado[j]] = [arrayEmbaralhado[j], arrayEmbaralhado[i]];
+    }
+    return arrayEmbaralhado;
 }
 
 /**
@@ -103,12 +115,15 @@ function iniciarJogo(categoria) {
     categoriaSelecionada = categoria;
     
     // Filtra as questões pela categoria selecionada
-    questoesFiltradas = questoes.filter(questao => questao.categoria === categoria);
+    const questoesFiltradasTemp = questoes.filter(questao => questao.categoria === categoria);
     
-    if (questoesFiltradas.length === 0) {
+    if (questoesFiltradasTemp.length === 0) {
         alert(`Não há questões disponíveis para a categoria "${categoria}".`);
         return;
     }
+    
+    // Embaralha as questões para apresentação aleatória
+    questoesFiltradas = embaralharArray(questoesFiltradasTemp);
     
     // Reinicia as variáveis do jogo
     questaoAtual = 0;
@@ -122,7 +137,7 @@ function iniciarJogo(categoria) {
     telaJogo.classList.remove('hidden');
     telaResultados.classList.add('hidden');
     
-    console.log(`Jogo iniciado com ${questoesFiltradas.length} questões da categoria "${categoria}"`);
+    console.log(`Jogo iniciado com ${questoesFiltradas.length} questões da categoria "${categoria}" (embaralhadas)`);
 }
 
 /**
@@ -147,14 +162,42 @@ function atualizarInterfaceJogo() {
     // Limpa opções anteriores
     opcoesResposta.innerHTML = '';
     
+    // Embaralha as respostas para apresentação aleatória
+    const respostasEmbaralhadas = embaralharArray(questao.respostas);
+    
     // Cria os botões de resposta
-    questao.respostas.forEach((resposta, index) => {
+    respostasEmbaralhadas.forEach((resposta, index) => {
+        // Verifica se a resposta é uma URL de imagem
+        const isImagemURL = /^https?:\/\/.*\.(jpg|jpeg|png|gif|webp|svg)$/i.test(resposta.trim());
+        
         const botaoResposta = document.createElement('button');
-        botaoResposta.className = 'w-full p-4 text-left bg-white/10 hover:bg-white/20 border border-white/30 rounded-xl transition-all duration-300 text-white font-medium';
-        botaoResposta.innerHTML = `
-            <span class="inline-block w-8 h-8 bg-white/20 rounded-full text-center leading-8 mr-4">${String.fromCharCode(65 + index)}</span>
-            ${resposta}
-        `;
+        
+        if (isImagemURL) {
+            // Se for uma imagem, exibe a imagem diretamente
+            botaoResposta.className = 'w-full p-4 text-left bg-white/10 hover:bg-white/20 border-2 border-white/30 hover:border-vermelho-neon/50 rounded-xl transition-all duration-300 text-white font-medium';
+            botaoResposta.innerHTML = `
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="inline-block w-8 h-8 bg-white/20 rounded-full text-center leading-8">${String.fromCharCode(65 + index)}</span>
+                    <span class="text-sm text-white/80">Opção ${String.fromCharCode(65 + index)}</span>
+                </div>
+                <div class="mt-2 p-2 bg-black/40 rounded-lg">
+                    <img src="${resposta}" alt="Opção ${String.fromCharCode(65 + index)}" class="imagem-questao max-w-full h-auto rounded-lg border border-white/20" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                         onload="this.nextElementSibling.style.display='none';">
+                    <div style="display:block;" class="text-yellow-300 text-xs mt-2 flex items-center gap-2">
+                        <span>⏳</span>
+                        <span>Carregando imagem...</span>
+                    </div>
+                </div>
+            `;
+        } else {
+            // Resposta normal de texto
+            botaoResposta.className = 'w-full p-4 text-left bg-white/10 hover:bg-white/20 border border-white/30 rounded-xl transition-all duration-300 text-white font-medium';
+            botaoResposta.innerHTML = `
+                <span class="inline-block w-8 h-8 bg-white/20 rounded-full text-center leading-8 mr-4">${String.fromCharCode(65 + index)}</span>
+                ${resposta}
+            `;
+        }
         
         // Adiciona evento de clique
         botaoResposta.addEventListener('click', () => selecionarResposta(resposta, botaoResposta));
@@ -177,6 +220,9 @@ function selecionarResposta(resposta, elementoBotao) {
     respostaSelecionada = resposta;
     const questao = questoesFiltradas[questaoAtual];
     
+    // Verifica se a resposta é uma URL de imagem
+    const isImagemURL = /^https?:\/\/.*\.(jpg|jpeg|png|gif|webp|svg)$/i.test(resposta.trim());
+    
     // Desabilita todos os botões para evitar múltiplas seleções
     const botoes = opcoesResposta.querySelectorAll('button');
     botoes.forEach(botao => {
@@ -186,30 +232,76 @@ function selecionarResposta(resposta, elementoBotao) {
     
     // Aplica feedback visual baseado na resposta
     if (resposta === questao.respostaCorreta) {
-        // Resposta correta - feedback verde
-        elementoBotao.className = 'w-full p-4 text-left bg-green-500/80 border border-green-400 rounded-xl text-white font-medium';
-        elementoBotao.innerHTML = `
-            <span class="inline-block w-8 h-8 bg-green-400 rounded-full text-center leading-8 mr-4">✓</span>
-            ${resposta}
-        `;
+        // Resposta correta - feedback verde com efeito neon
+        elementoBotao.className = 'w-full p-4 text-left bg-green-500/80 border-2 border-green-400 rounded-xl text-white font-medium';
+        elementoBotao.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.6)';
+        
+        if (isImagemURL) {
+            // Mantém a imagem visível com feedback verde
+            elementoBotao.innerHTML = `
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="inline-block w-8 h-8 bg-green-400 rounded-full text-center leading-8">✓</span>
+                    <span class="text-sm font-bold">RESPOSTA CORRETA!</span>
+                </div>
+                <div class="mt-2 p-2 bg-black/40 rounded-lg border border-green-400">
+                    <img src="${resposta}" alt="Resposta correta" class="imagem-questao max-w-full h-auto rounded-lg">
+                </div>
+            `;
+        } else {
+            elementoBotao.innerHTML = `
+                <span class="inline-block w-8 h-8 bg-green-400 rounded-full text-center leading-8 mr-4">✓</span>
+                ${resposta}
+            `;
+        }
         pontuacao++;
     } else {
-        // Resposta incorreta - feedback vermelho
-        elementoBotao.className = 'w-full p-4 text-left bg-red-500/80 border border-red-400 rounded-xl text-white font-medium';
-        elementoBotao.innerHTML = `
-            <span class="inline-block w-8 h-8 bg-red-400 rounded-full text-center leading-8 mr-4">✗</span>
-            ${resposta}
-        `;
+        // Resposta incorreta - feedback vermelho com efeito neon
+        elementoBotao.className = 'w-full p-4 text-left bg-red-500/80 border-2 border-red-400 rounded-xl text-white font-medium';
+        elementoBotao.style.boxShadow = '0 0 20px rgba(239, 68, 68, 0.6)';
+        
+        if (isImagemURL) {
+            // Mantém a imagem visível com feedback vermelho
+            elementoBotao.innerHTML = `
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="inline-block w-8 h-8 bg-red-400 rounded-full text-center leading-8">✗</span>
+                    <span class="text-sm font-bold">RESPOSTA INCORRETA</span>
+                </div>
+                <div class="mt-2 p-2 bg-black/40 rounded-lg border border-red-400">
+                    <img src="${resposta}" alt="Resposta incorreta" class="imagem-questao max-w-full h-auto rounded-lg">
+                </div>
+            `;
+        } else {
+            elementoBotao.innerHTML = `
+                <span class="inline-block w-8 h-8 bg-red-400 rounded-full text-center leading-8 mr-4">✗</span>
+                ${resposta}
+            `;
+        }
         
         // Destaca a resposta correta
         questao.respostas.forEach((respostaOpcao, index) => {
             if (respostaOpcao === questao.respostaCorreta) {
                 const botaoCorreto = botoes[index];
-                botaoCorreto.className = 'w-full p-4 text-left bg-green-500/80 border border-green-400 rounded-xl text-white font-medium';
-                botaoCorreto.innerHTML = `
-                    <span class="inline-block w-8 h-8 bg-green-400 rounded-full text-center leading-8 mr-4">✓</span>
-                    ${questao.respostaCorreta}
-                `;
+                const isImagemCorretaURL = /^https?:\/\/.*\.(jpg|jpeg|png|gif|webp|svg)$/i.test(respostaOpcao.trim());
+                
+                botaoCorreto.className = 'w-full p-4 text-left bg-green-500/80 border-2 border-green-400 rounded-xl text-white font-medium';
+                botaoCorreto.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.6)';
+                
+                if (isImagemCorretaURL) {
+                    botaoCorreto.innerHTML = `
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="inline-block w-8 h-8 bg-green-400 rounded-full text-center leading-8">✓</span>
+                            <span class="text-sm font-bold">RESPOSTA CORRETA</span>
+                        </div>
+                        <div class="mt-2 p-2 bg-black/40 rounded-lg border border-green-400">
+                            <img src="${respostaOpcao}" alt="Resposta correta" class="imagem-questao max-w-full h-auto rounded-lg">
+                        </div>
+                    `;
+                } else {
+                    botaoCorreto.innerHTML = `
+                        <span class="inline-block w-8 h-8 bg-green-400 rounded-full text-center leading-8 mr-4">✓</span>
+                        ${questao.respostaCorreta}
+                    `;
+                }
             }
         });
     }
@@ -306,54 +398,45 @@ function voltarAoMenu() {
 
 /**
  * FORMATAÇÃO DE PERGUNTA COM LINKS
- * Converte URLs em links clicáveis e opcionalmente exibe imagens
+ * Converte URLs em links clicáveis e exibe imagens automaticamente
  * @param {string} pergunta - Texto da pergunta que pode conter URLs
- * @returns {string} - HTML formatado com links clicáveis
+ * @returns {string} - HTML formatado com links clicáveis e imagens carregadas
  */
 function formatarPerguntaComLinks(pergunta) {
     // Regex para detectar URLs
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     
-    // Substitui URLs por links clicáveis
+    // Substitui URLs por links clicáveis ou imagens
     let perguntaFormatada = pergunta.replace(urlRegex, (url) => {
         // Verifica se é uma imagem
         const isImagem = /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(url);
         
         if (isImagem) {
             return `
-                <div class="my-4 p-4 bg-white/5 rounded-xl border border-white/20">
+                <div class="my-4 p-4 bg-black/60 rounded-xl border-2 border-vermelho-neon/40" style="box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);">
                     <div class="flex items-center gap-3 mb-3">
                         <span class="text-2xl">🖼️</span>
-                        <span class="text-blue-300 font-medium">Imagem para análise:</span>
+                        <span class="text-vermelho-neon font-semibold" style="text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);">Imagem para análise:</span>
                     </div>
-                    <a href="${url}" target="_blank" class="link-imagem inline-flex items-center gap-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 hover:text-blue-200 px-4 py-2 rounded-lg border border-blue-400/30 transition-all duration-300 transform hover:scale-105">
+                    <div class="p-3 bg-black/40 rounded-lg border border-rosa-neon/30">
+                        <img src="${url}" alt="Imagem da questão" class="imagem-questao max-w-full h-auto rounded-lg border border-white/20" 
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                             onload="this.nextElementSibling.style.display='none';">
+                        <div style="display:block;" class="text-yellow-300 text-sm mt-2 flex items-center gap-2 animate-pulse">
+                            <span>⏳</span>
+                            <span>Carregando imagem...</span>
+                        </div>
+                    </div>
+                    <a href="${url}" target="_blank" class="link-imagem inline-flex items-center gap-2 bg-vermelho-neon/20 hover:bg-vermelho-neon/30 text-vermelho-neon hover:text-rosa-neon px-4 py-2 rounded-lg border border-vermelho-neon/50 transition-all duration-300 transform hover:scale-105 mt-3" style="box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);">
                         <span>📷</span>
-                        <span>Clique para ver a imagem</span>
+                        <span>Abrir imagem em nova aba</span>
                         <span>🔗</span>
                     </a>
-                    <div class="mt-3">
-                        <details class="cursor-pointer">
-                            <summary class="text-sm text-blue-300 hover:text-blue-200 font-medium flex items-center gap-2">
-                                <span>💡</span>
-                                <span>Clique aqui para exibir a imagem diretamente</span>
-                                <span class="text-xs opacity-70">(carregamento pode demorar)</span>
-                            </summary>
-                            <div class="mt-3 p-3 bg-white/10 rounded-lg">
-                                <img src="${url}" alt="Imagem da questão" class="imagem-questao max-w-full h-auto rounded-lg border border-white/20" 
-                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
-                                     onload="this.nextElementSibling.style.display='none';">
-                                <div style="display:block;" class="text-yellow-300 text-sm mt-2 flex items-center gap-2">
-                                    <span>⏳</span>
-                                    <span>Carregando imagem... Se não carregar, use o link acima.</span>
-                                </div>
-                            </div>
-                        </details>
-                    </div>
                 </div>
             `;
         } else {
             // Para outros tipos de links
-            return `<a href="${url}" target="_blank" class="text-blue-300 hover:text-blue-200 underline transition-colors duration-300">🔗 ${url}</a>`;
+            return `<a href="${url}" target="_blank" class="text-vermelho-neon hover:text-rosa-neon underline transition-colors duration-300" style="text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);">🔗 ${url}</a>`;
         }
     });
     

@@ -2,560 +2,352 @@
   {
     "id": 1,
     "categoria": "UA",
-    "pergunta": "Data warehouses são criados a partir de diferentes processos, e possuem alguns componentes arquiteturais específicos. Neste sentido, qual a função do staging area?",
+    "pergunta": "Sobre a seleção de dados em SQL, analise as afirmativas a seguir e assinale a afirmativa correta.",
     "respostas": [
-      "Armazenar os dados do Data Warehouse.",
-      "Realizar as consultas OLAP.",
-      "Fornecer os dados para os Servidores de Origem.",
-      "Armazenar os dados provisoriamente para a fase de Transformação.",
-      "Receber os dados já transformados."
+      "Em uma consulta, na cláusula FROM, deve ser especificado o nome de uma única tabela.",
+      "Na cláusula SELECT, é necessário especificar o nome de todos os campos da tabela quando se deseja que todos sejam exibidos.",
+      "Dentro da cláusula FROM, ao especificar as tabelas, pode ser colocado um apelido (alias) para as tabelas, inserindo-o logo depois da tabela, separado por espaço.",
+      "A cláusula SELECT é a mais importante na seleção de dados, porque pode ser utilizada sozinha.",
+      "Na realização de uma consulta SQL, a cláusula FROM pode ser substituída facilmente pela cláusula WHERE, ambas apresentando a mesma função."
     ],
-    "respostaCorreta": "Armazenar os dados provisoriamente para a fase de Transformação.",
-    "justificativa": "Staging area é uma localização temporária em que os dados dos sistemas de origem, ainda não transformados, são copiados. Embora receba temporariamente, os dados não são armazenados de forma definitiva nessa área. Também não é possível realizar consultas OLAP, pois são dados temporários. Os servidores de origem podem ser responsáveis por abastecer a staging area (e não o contrário)."
+    "respostaCorreta": "Dentro da cláusula FROM, ao especificar as tabelas, pode ser colocado um apelido (alias) para as tabelas, inserindo-o logo depois da tabela, separado por espaço.",
+    "justificativa": "Uma consulta básica SQL será sempre formada pelas cláusulas SELECT e FROM. Na cláusula FROM, podem ser colocadas quantas tabelas forem necessárias, sendo possível especificar apelidos (alias)."
   },
   {
     "id": 2,
     "categoria": "UA",
-    "pergunta": "O uso correto dos processos de extração, transformação e carga, podem trazer muitos benefícios a uma empresa ou instituição. Dentre as vantagens do ETL, podemos destacar:",
+    "pergunta": "Considere um banco relacional, com uma tabela \"Pessoa\", que tem os campos Nome, Telefone, Endereço, Idade e Cidade e com os valores descritos a seguir (Imagem: https://statics-marketplace.plataforma.grupoa.education/sagah/b74bd243-0937-4c6c-b52f-c223cec2e829/d91391f6-fc4b-48a5-8253-d504b7761059.jpg ). Analise as afirmativas a seguir e assinale a única correta.",
     "respostas": [
-      "Ótima performance, conexão única e facilidade de desenvolvimento.",
-      "Manutenção simples, qualidade de dados e desenvolvimento complexo.",
-      "Qualidade de dados, capacidade de reiniciar e conexão única.",
-      "Facilidade de execução, estabilidade, dados sem indexação.",
-      "Qualidade de dados, clareza nas informações, e múltiplas conexões."
+      "O comando SELECT * FROM Pessoa irá retornar as linhas 1, 2, 3, 4.",
+      "O comando SELECT * FROM Pessoa WHERE cidade = null irá retornar a linha 5.",
+      "O Comando SELECT nome * FROM Pessoa WHERE Cidade like 'Marau, Passo Fundo' irá retornar as linhas 1,2,3 e 4.",
+      "O Comando SELECT * FROM Pessoa WHERE Cidade not in ('Marau', 'Passo Fundo') irá retronar apenas a linha 1e 5.",
+      "O Comando SELECT * FROM Pessoa WHERE Cidade like (Marau, Passo Fundo) irá retornar as linhas 1,2,3 e 4."
     ],
-    "respostaCorreta": "Qualidade de dados, clareza nas informações, e múltiplas conexões.",
-    "justificativa": "Qualidade de dados, clareza nas informações e múltiplas conexões são vantagens reais de ferramentas ETL. Conexão única não está presente no ETL, que permite conectar o data warehouse a diversas conexões, e não seria uma vantagem. O desenvolvimento em ETL pode ser complexo, dependendo do ambiente, mas isso não é uma vantagem. Após passar pelo processo de ETL, os dados são indexados no data warehouse, e a falta de indexação seria uma desvantagem."
+    "respostaCorreta": "O Comando SELECT * FROM Pessoa WHERE Cidade not in ('Marau', 'Passo Fundo') irá retronar apenas a linha 1e 5.",
+    "justificativa": "Para usar uma lista de valores, deve ser utilizado o operador IN (ou NOT IN), e os valores devem ser colocados entre aspas simples. O operador = não funciona com NULL (deveria ser IS NULL)."
   },
   {
     "id": 3,
     "categoria": "UA",
-    "pergunta": "Cada uma das três etapas do processo de ETL é responsável por tarefas distintas e complementares. O que ocorre com os dados durante o processo de transformação dos dados?",
+    "pergunta": "Considerando a tabela a seguir (Imagem: https://statics-marketplace.plataforma.grupoa.education/sagah/95fac8a0-9d5c-43f5-a2bd-e6205cdcc547/5c07c9af-909e-44dc-ac27-309fb488690f.jpg ), analise as afirmativas e selecione a que contém o SQL correto que irá retornar APENAS as linhas 1 e 2.",
     "respostas": [
-      "Carregamento dos dados.",
-      "Extração dos dados.",
-      "Padronização dos valores.",
-      "Rotação das tabelas.",
-      "Retirada da indexação dos valores."
+      "https://statics-marketplace.plataforma.grupoa.education/sagah/dc02a08b-a6a1-4b8e-b9fc-751191a8bfa3/71430e1c-e4af-4bdc-89c2-025534811316.jpg",
+      "https://statics-marketplace.plataforma.grupoa.education/sagah/940d3041-8988-4469-a471-4f7f38229a8e/f6396ed9-e77d-4e68-8db0-0080e95faeb9.jpg",
+      "https://statics-marketplace.plataforma.grupoa.education/sagah/f756bf67-1d43-4ab2-a2eb-cebf4b5f7457/f9816779-fb43-4d63-ae8a-46f5ec67f6dc.jpg",
+      "https://statics-marketplace.plataforma.grupoa.education/sagah/796761bf-e19e-4fcb-8258-f0970c77f25d/f15562e7-8c02-42d5-8c7c-3f82daab2307.jpg",
+      "https://statics-marketplace.plataforma.grupoa.education/sagah/49fde780-a2a5-4f4f-8368-37a9fde241dc/917736a0-21b0-4f4f-a65d-478cca6f3d7e.jpg"
     ],
-    "respostaCorreta": "Padronização dos valores.",
-    "justificativa": "É durante a etapa de transformação que ocorre a padronização dos valores. O carregamento dos dados ocorre na primeira etapa, que é a extração dos dados. A rotação das tabelas ocorre posteriormente, no OLAP. Por fim, a transformação é responsável pela indexação dos valores no data warehouse."
+    "respostaCorreta": "https://statics-marketplace.plataforma.grupoa.education/sagah/dc02a08b-a6a1-4b8e-b9fc-751191a8bfa3/71430e1c-e4af-4bdc-89c2-025534811316.jpg",
+    "justificativa": "Utilizando BETWEEN, o SQL irá retornar os valores que estão em um intervalo de dados (inclusive). Como as únicas cidades entre 150.000 e 200.000 habitantes são Curitiba e Passo Fundo, essa consulta retorna as linhas 1 e 2."
   },
   {
     "id": 4,
     "categoria": "UA",
-    "pergunta": "No processo de Extração, é necessário identificar quais dados serão inseridos no data warehouse. Nesta fase, quantos servidores e tecnologias podem ser lidos?",
+    "pergunta": "Analisando a tabela a seguir (Imagem: https://statics-marketplace.plataforma.grupoa.education/sagah/fb286264-e7ef-4d09-b229-00064508befa/5976ad30-fd17-45b4-ab76-d39ec11e027a.jpg ) e as afirmativas subsequentes, selecione a afirmativa que contém a consulta SQL necessária para trazer os alunos aprovados (considere aprovados alunos com nota superior a 7) nascidos a partir de 1991 e que não tiraram nenhuma nota abaixo de 6.",
     "respostas": [
-      "Apenas um servidor e uma tecnologia.",
-      "Vários servidores, mas apenas uma tecnologia.",
-      "Apenas um servidor, mas várias tecnologias.",
-      "Vários servidores e várias tecnologias.",
-      "Não é possível fazer a Extração de servidores externos."
+      "https://statics-marketplace.plataforma.grupoa.education/sagah/7cea7e0f-3142-4683-8104-95f4f231e967/64c79eb9-bc64-4e8a-a8f7-27bfb93b326f.jpg",
+      "https://statics-marketplace.plataforma.grupoa.education/sagah/15a51f6e-267e-41f8-9e84-e10f5cda2e71/11908bd9-ee10-440b-af1d-5a2e4223ce07.jpg",
+      "https://statics-marketplace.plataforma.grupoa.education/sagah/04578717-25ea-422b-adb0-857688d16c55/42cc1bd6-dcd0-43b9-897b-cf1758c3137f.png",
+      "https://statics-marketplace.plataforma.grupoa.education/sagah/e723e5f9-63af-417e-92dc-961b0a8267f8/9549d85f-f4a3-4f55-8a6f-6b68053000bc.png",
+      "https://statics-marketplace.plataforma.grupoa.education/sagah/c93178bc-17e9-4328-aeaf-2714ea777030/f02eac38-7db3-4027-a38d-2e9d1b8e1739.jpg"
     ],
-    "respostaCorreta": "Vários servidores e várias tecnologias.",
-    "justificativa": "É possível, na extração dos dados, acessar vários servidores físicos ou virtuais e várias tecnologias diferentes, como bancos de dados relacionais, arquivos de texto, entre outros, sendo que a principal função é extrair dados de servidores externos."
+    "respostaCorreta": "https://statics-marketplace.plataforma.grupoa.education/sagah/c93178bc-17e9-4328-aeaf-2714ea777030/f02eac38-7db3-4027-a38d-2e9d1b8e1739.jpg",
+    "justificativa": "É necessário usar media >= 7 para aprovados, AND anoNasc >= 1991 para o ano, e verificar as três notas individualmente com >= 6 (nota1 >= 6 AND nota2 >= 6 AND nota3 >= 6)."
   },
   {
     "id": 5,
     "categoria": "UA",
-    "pergunta": "Na fase final do ETL, os dados já foram carregados, preparados, e estão prontos para a consulta. Após o processo de carga, onde os dados ficam disponíveis para serem consultados pelo OLAP?",
+    "pergunta": "Considere a tabela a seguir e, com base nela, assinale a afirmativa que contém a(s) fruta(s) que irá(ão) retornar para a seguinte consulta SQL: SELECT * FROM frutas WHERE preco BETWEEN 2.5 AND 3 AND unidade = 'kg' AND nome LIKE '%ca%'; (Imagem da Tabela: https://statics-marketplace.plataforma.grupoa.education/sagah/ee221cae-8aed-401b-814a-00542d14662e/61816080-5648-4d8c-a0c6-9764b77f7bf3.jpg )",
     "respostas": [
-      "Nos servidores de origem.",
-      "No Data Warehouse.",
-      "Na Staging Area.",
-      "Da área de transferência.",
-      "Do SQL."
+      "Apenas abacate.",
+      "Abacate, caju e caqui.",
+      "Abacate e caju.",
+      "Caju e caqui.",
+      "Caqui e caju."
     ],
-    "respostaCorreta": "No Data Warehouse.",
-    "justificativa": "É o Data Warehouse que armazenará os dados já padronizados para consulta, pois os servidores de origem apenas fornecem os dados para alimentar o data warehouse, pelo processo de ETL. A staging area é uma área de transferência, apenas uma base provisória para os dados, e não sendo utilizada para consultas. O SQL é uma linguagem de consulta e não uma base de dados."
+    "respostaCorreta": "Abacate e caju.",
+    "justificativa": "O BETWEEN filtra frutas com preços entre 2,5 e 3. A unidade 'kg' elimina o caqui. O LIKE '%ca%' exige que o nome tenha a sílaba 'ca', o que permite abacate e caju."
   },
   {
     "id": 6,
     "categoria": "UA",
-    "pergunta": "Para o projeto de um business intelligence (BI), deve-se planejar a arquitetura de um data warehouse (DW). Existem alguns tipos de arquitetura que dependem de fatores como recurso financeiro limitado, foco em um departamento e pouco tempo de entrega; nesses casos, opta-se pela arquitetura ascendente. Seu foco está na construção de novos data marts. Nesse sentido, é correto afirmar que:",
+    "pergunta": "Considerada uma das operações mais utilizadas, bem como a forma para a combinação de informações de duas ou mais relações, o join em uma instrução SQL refere-se a uma:",
     "respostas": [
-      "permite a construção de um modelo de dados organizacional.",
-      "permite a construção de um modelo de dados hierárquico.",
-      "permite a construção de um modelo de dados orientado a assunto.",
-      "permite a construção de um modelo de dados dimensional.",
-      "permite a construção de um modelo de dados integrado."
+      "restrição.",
+      "junção.",
+      "deleção.",
+      "inserção.",
+      "alteração."
     ],
-    "respostaCorreta": "permite a construção de um modelo de dados organizacional.",
-    "justificativa": "Permite a construção de um modelo de dados organizacional relacionado a arquitetura ascendente. Já o modelo hierárquico se refere a uma coleção de registros conectados por meio de chaves. Em relação a modelos de dados orientados a assunto, dimensionais e integrados, não são modelos, mas características."
+    "respostaCorreta": "junção.",
+    "justificativa": "Um join é um cruzamento entre tabelas; assim, é representado pela junção entre tabelas."
   },
   {
     "id": 7,
     "categoria": "UA",
-    "pergunta": "Uma empresa de grande porte, do ramo de turismo, precisa desenvolver um projeto de DW para atender ao modelo de 'comportamento de clientes', em que precisa identificar o perfil de clientes que escolhem determinados pacotes de turismo, bem como quantos optam pelos pacotes promocionais. Para isso, será necessário envolver os departamentos relacionados a Marketing (promoções), Comercial (venda de pacotes) e Produção (novos produtos). Será também necessário atender a dados analíticos, específicos de cada um desses departamentos, bem como compartilhar dados de clientes, comuns a todos. Uma das formas de representar a arquitetura de um data warehouse é a partir de camadas, mais conhecidas como arquitetura de dois e três níveis. No que se refere ao conceito de camadas, está correto afirmar que:",
+    "pergunta": "O PostgreSQL é um sistema de gerenciamento de banco de dados de uso geral e objeto-relacional. Dos vários tipos de operação de junção no PostgreSQL, a junção NATURAL é um tipo especial de qual operação de junção?",
     "respostas": [
-      "permite apenas a construção de um modelo de dados corporativo, sem a criação do modelo departamental.",
-      "permite apenas a construção de um modelo departamental, sem a necessidade de criar o modelo corporativo.",
-      "permite a construção de um modelo de dados corporativo, seguido de um modelo de dados departamental.",
-      "permite a construção de um modelo de dados operacional, além do modelo departamental.",
-      "permite a construção de um modelo de dados independentes, contendo vários modelos corporativos."
+      "LEFT.",
+      "RIGHT.",
+      "INNER.",
+      "OUTER.",
+      "FULL."
     ],
-    "respostaCorreta": "permite a construção de um modelo de dados corporativo, seguido de um modelo de dados departamental.",
-    "justificativa": "As arquiteturas de dois e três níveis permitem a construção de um modelo de dados corporativo, seguido de um modelo de dados departamental. Não criam apenas um modelo corporativo ou departamental. O modelo de dados operacional não faz parte do modelo analítico, por se tratar de dados de origem, de sistemas legados. O modelo de dados independentes é, na verdade, uma proposta de arquitetura de um único data mart."
+    "respostaCorreta": "INNER.",
+    "justificativa": "A junção NATURAL é um tipo especial de operação de junção INNER que retorna registros das tabelas do PostgreSQL, agrupando-os de acordo com um código relacionado."
   },
   {
     "id": 8,
     "categoria": "UA",
-    "pergunta": "Uma das principais desvantagens no uso de uma arquitetura de dois níveis está no fato de se ter um tempo de resposta muito elevado, devido ao grande volume de dados. Diante disso, pode-se afirmar que as partes que compõem a arquitetura de um data warehouse de três níveis são:",
+    "pergunta": "Considerando as tabelas: Funcionarios(funcionario_nome, funcionarios_cod) e Setores(setores_nome, setores_codigo, funcionarios_cod). Deseja-se apresentar o resultado: Resultado(funcionarios_cod, setores_codigo, funcionario_nome, setores_nome). Qual instrução SQL atende a essa demanda?",
     "respostas": [
-      "fonte de dados de origem operacional, camada de consulta ao usuário final e data warehouse.",
-      "fonte de dados de origem operacional, data warehouse e data marts.",
-      "data warehouse, data martsemetadados.",
-      "camada de consulta ao usuário final, data warehouse e data marts.",
-      "fonte de dados de origem operacional, camada de consulta ao usuário final e data marts."
+      "SELECT * FROM departamentos LEFT JOIN funcionarios.",
+      "SELECT * FROM setores NATURAL JOIN funcionarios.",
+      "SELECT * FROM setores.",
+      "SELECT * FROM funcionarios.",
+      "SELECT nome, funcionario_cod FROM setores NATURAL JOIN funcionarios."
     ],
-    "respostaCorreta": "fonte de dados de origem operacional, data warehouse e data marts.",
-    "justificativa": "As partes que compõem a arquitetura de três níveis são: fonte do banco de dados operacional, data warehouse e data marts. A camada de consulta ao usuário final, bem como os metadados, não faz parte da arquitetura de três níveis."
+    "respostaCorreta": "SELECT * FROM setores NATURAL JOIN funcionarios.",
+    "justificativa": "A SELECT * FROM setores NATURAL JOIN funcionarios apresenta a instrução correta para cruzar os dados."
   },
   {
     "id": 9,
     "categoria": "UA",
-    "pergunta": "A proposta de uma arquitetura de DW de dois níveis é a criação de um modelo no qual possa atender a todas as áreas de uma empresa. Dados de origem podem ser tratados e carregados em uma base analítica. O exemplo a seguir mostra a fonte de dados de origem sendo transportada para a base analítica (EDM) e disponibilizada de forma departamental. https://statics-marketplace.plataforma.grupoa.education/sagah/d295ce5f-a830-4c37-b644-0647daa6ff23/3672834e-bd80-4194-bc19-84d97fed30b0.png Considerando esse exemplo, EDM pode ser considerado como:",
+    "pergunta": "Na instrução SQL apresentada: 'SELECT * FROM cidade INNER JOIN regiao ON cidade.codigo_regiao = regiao.codigo_regiao', qual cláusula é opcional?",
     "respostas": [
-      "um data mart único.",
-      "um conjunto de data marts conectados.",
-      "um data mart corporativo.",
-      "um conceito de modelo de dados corporativo.",
-      "uma fonte de dados de origem operacional."
+      "SELECT.",
+      "FROM.",
+      "INNER.",
+      "JOIN.",
+      "ON."
     ],
-    "respostaCorreta": "um conceito de modelo de dados corporativo.",
-    "justificativa": "Na essência, EDM pode ser considerado um conceito de modelo de dados corporativo, para representação do data warehouse, no qual serve como apoio ao processo de transformação dos dados de origem, a partir dos metadados necessários para acessar os bancos de dados operacionais e as fontes externas, bem como o repositório. Não se trata de fonte de dados de origem operacional, pois isso é OLTP, bem como não existem DMs corporativos, por serem departamentais. Não é um DM único, por representar dados corporativos, e muito menos DMs conectados."
+    "respostaCorreta": "INNER.",
+    "justificativa": "A única cláusula opcional na instrução SQL é a INNER, pois, na junção interna, ela já é definida por padrão."
   },
   {
     "id": 10,
     "categoria": "UA",
-    "pergunta": "Para a construção de um DW, a arquitetura de dois níveis considera duas camadas, por ser representada pela fonte de dados (origem) e o repositório propriamente dito. Também tem a vantagem de centralizar os dados e evitar a redundância. Além disso, é correto afirmar que:",
+    "pergunta": "Uma junção natural consiste da criação de relação implícita com base nos mesmos nomes de atributos em duas tabelas. Portanto, qual símbolo representa a operação específica de junção em banco de dados relacional?",
     "respostas": [
-      "a construção dos DMs é totalmente corporativa, mantendo todos os dados da empresa.",
-      "a replicação de certos segmentos de dados do DW para os DMs pode provocar um aumento na redundância de dados.",
-      "nem todos os DMs originados a partir de um DW utilizam a arquitetura e os dados desse DW, o que dificulta a manutenção.",
-      "a ideia de um DM é atender a todos os usuários de todos os departamentos relacionados a uma arquitetura.",
-      "a construção de um data warehouse permite entregas rápidas."
+      "σ (sigma).",
+      "⋈.",
+      "π.",
+      "÷.",
+      "∪."
     ],
-    "respostaCorreta": "a replicação de certos segmentos de dados do DW para os DMs pode provocar um aumento na redundância de dados.",
-    "justificativa": "É correto afirmar que a replicação de certos segmentos de dados do DW para os DMs pode realmente provocar um aumento na redundância de dados. Com relação à dificuldade na manutenção de um DM, na verdade, todos os DMs originados a partir de um DW utilizam a arquitetura e os dados desse DW, permitindo uma fácil manutenção. A construção dos DMs é altamente direcionada e não corporativa, pois quem armazena dados corporativos é o DW. Data marts atendem a determinado grupo de usuários, de maneira isolada, e não a todos os usuários de todos os departamentos relacionados a uma arquitetura, disponibilizando apenas os dados necessários. A construção de um data warehouse dura, em média, 15 meses, dificultando a garantia de apoio político e orçamentário, ou seja, não há entregas rápidas."
+    "respostaCorreta": "⋈.",
+    "justificativa": "O ⋈ (borboleta/gravata borboleta) representa o Join (junção)."
   },
   {
     "id": 11,
     "categoria": "UA",
-    "pergunta": "O modelo analítico de maturidade TDWI (The Data Warehousing Institute) consiste em seis estágios. Esse modelo analítico tem a característica de mostrar que, à medida que as organizações avançam nesses estágios, elas passam a ganhar maior valor com seus investimentos. O \"abismo\", que está sinalizado entre duas etapas, de acordo com a figura, é uma representação metafórica para indicar o tamanho do desafio que uma organização deve fazer para migrar de um estágio para outro. https://statics-marketplace.plataforma.grupoa.education/sagah/afd4673b-d128-411a-ad05-d053c7df485a/49a57691-103f-4014-b379-9fae3961b6d1.png Qual das opções a seguir corresponde ao nível que essa organização irá atingir após vencer o \"abismo\"?",
+    "pergunta": "Com o uso de LEFT, todas as linhas da tabela da esquerda que não têm correspondentes na tabela da direita são acrescidas no resultado da consulta. Considerando a instrução abaixo, selecione as partes ausentes na cláusula JOIN para unir as duas tabelas Pedidos e Clientes, usando o campo cod_cliente em ambas: SELECT * FROM Pedidos LEFT JOIN Clientes ON ____________;",
     "respostas": [
-      "Nível avançado.",
-      "Nível intermediário.",
-      "Nível pré-adaptação.",
-      "Nível inicial.",
-      "Nível mercado."
+      "Clientes = Pedidos",
+      "Clientes.codigo = Pedidos.codigo",
+      "Pedidos.cod_cliente = Clientes.cod_cliente",
+      "Pedidos.cod_cliente <> Clientes.cod_cliente",
+      "Pedidos_cod_cliente = Pedidos"
     ],
-    "respostaCorreta": "Nível avançado.",
-    "justificativa": "Após migrar da etapa de adaptação, que representa o nível intermediário, para a etapa de pré-mercado, a empresa irá ingressar no nível avançado, pois, nessas etapas, a estrutura de data warehouse ja está operacional, e a visão da empresa muda para o âmbito estratégico. Pré-adaptação e mercado não são níveis; são fases em períodos diferentes de maturidades."
+    "respostaCorreta": "Pedidos.cod_cliente = Clientes.cod_cliente",
+    "justificativa": "Para que a junção esquerda seja validada, é necessário que os campos idênticos nas duas tabelas sejam explicitados após a cláusula ON, neste caso: Pedidos.cod_cliente = Clientes.cod_cliente."
   },
   {
     "id": 12,
     "categoria": "UA",
-    "pergunta": "Certa empresa de prestação de serviços na área de telecomunicações é, estruturalmente, dividida em cinco setores: vendas, visita técnica, recursos humanos, administração e almoxarifado. Cada setor conta com um analista que, diariamente, controla todas as atividades em uma planilha compartilhada. Quando o dono da empresa precisa de qualquer informação do dia, precisa ir até o analista do setor e perguntar sobre tal. Geralmente os analistas não trocam informações entre si, e não há nenhuma ferramenta que armazene um histórico das atividades. Levando em consideração o modelo de maturidade de seis etapas, em qual estágio a empresa apresentada se encontra no momento, caso quisesse iniciar a implementação de um data warehouse?",
+    "pergunta": "Escolha a cláusula JOIN correta, que preencha a linha, para selecionar todos os registros da tabela Clientes, mais todas as correspondências na tabela Pedidos: SELECT * FROM Pedidos _____ Clientes ON Pedidos.cliente_ID = Clientes.cliente_ID;",
     "respostas": [
-      "Pré-natal.",
-      "Infância.",
-      "Infantil.",
-      "Adolescência.",
-      "Adulto."
+      "LEFT JOIN",
+      "FULL JOIN",
+      "RIGHT JOIN",
+      "INNER JOIN",
+      "CROSS JOIN"
     ],
-    "respostaCorreta": "Pré-natal.",
-    "justificativa": "A empresa encontra-se no pré-natal, pois a principal característica dessa fase é o trabalho manual e descentralizado com relação ao ponto de vista da informação. Não há um elemento comum concentrador das informações úteis à empresa que possa tornar seu acesso rápido e fácil. A fase infância caracteriza-se por ter um servidor por departamento, e a fase adolescência já é o início da integração dos dados (implantação do data warehouse). A fase adulta já é o início do nível avançado; nela, fase a empresa já tem seus dados integrados."
+    "respostaCorreta": "RIGHT JOIN",
+    "justificativa": "RIGHT JOIN apresenta todos os elementos da tabela direita (neste caso, Clientes) e suas correspondências na tabela da esquerda."
   },
   {
     "id": 13,
     "categoria": "UA",
-    "pergunta": "O Business Intelligence é um recurso essencial para acessar, compartilhar e consolidar dados clínicos. Considere que a rede fictícia da figura a seguir foi projetada de acordo com o modelo de maturidade CMMI (Capability Maturity Model Integration Integração do Modelo de Maturidade Capacitiva), que foi criado com o objetivo de consolidar requisitos clínicos e apresentar alta confiabilidade e velocidade de acesso aos dados para uma rede de hospitais de um Estado. Essa solução traria inúmeros benefícios no âmbito da saúde, pois resultados, exames e pesquisas seriam disponibilizados para os setores envolvidos. De acordo com o texto e a figura da rede apresentada, qual das opções a seguir representa, na prática, o local onde o data warehouse (DW) estaria instalado?",
+    "pergunta": "Há um JOIN que produz um conjunto de resultados que contém todas as linhas da tabela direita, com as linhas correspondentes da tabela esquerda. Se não houver correspondência, o lado esquerdo conterá valores nulos. A qual junção a afirmação se refere?",
     "respostas": [
-      "Núcleo da rede.",
-      "Rede de distribuição.",
-      "Rede de acesso.",
-      "Hospital 1.",
-      "Hospital 2."
+      "INNER.",
+      "FULL.",
+      "CROSS.",
+      "LEFT.",
+      "RIGHT."
     ],
-    "respostaCorreta": "Núcleo da rede.",
-    "justificativa": "O data warehouse (DW) está instalado no núcleo da rede, pois, de acordo com o conceito dos modelos de maturidade, ele será responsável por gerenciar, controlar, consolidar as informações e prover acesso aos dados. A rede de distribuição é responsável por concentrar as informações dos equipamentos das pontas (no caso, os hospitais), que, por sua vez, geram os dados que serão consolidados no DW."
+    "respostaCorreta": "RIGHT.",
+    "justificativa": "A junção externa direita (RIGHT) produz um conjunto de resultados com todas as linhas da tabela direita, com as linhas correspondentes da tabela esquerda."
   },
   {
     "id": 14,
     "categoria": "UA",
-    "pergunta": "Um Enterprise Data Warehouse (EDW) é um banco de dados, ou conjunto de bancos de dados, que centraliza as informações de uma empresa de várias fontes e aplicativos e as disponibiliza para análise e uso em toda a organização. Os EDWs podem ser alojados em um servidor local ou na nuvem. Os dados armazenados nesse tipo de armazém digital podem ser um dos ativos mais valiosos de uma empresa, pois representam muito do que se sabe sobre a empresa, seus funcionários, clientes e muito mais. Observe a rede a seguir e selecione a opção que é a tecnologia responsável por extrair, refinar e consolidar dados diferentes oriundos de fontes de dados diferentes em um DW. https://statics-marketplace.plataforma.grupoa.education/sagah/11f6d2ba-0f0d-41d9-98c1-b5599b5b63bc/0845d03d-2cb0-49ff-88f5-13526b1ac724.png",
+    "pergunta": "Considerando a instrução SQL \"SELECT * FROM estado FULL OUTER JOIN municipio USING (cod_estado);\", qual termo é considerado opcional?",
     "respostas": [
-      "ELT (Extract Transform Load - extração e transformação de dados).",
-      "CRM (Customer Relationship Management - Gerenciamento de relação com os clientes).",
-      "ERP (Enterprise Resource Planning - Planejamento dos recursos da empresa).",
-      "OLAP (OnLine Analytical Processing Processamento analítico em tempo real).",
-      "Data Mining (mineração de dados)."
+      "SELECT.",
+      "FROM.",
+      "FULL.",
+      "OUTER.",
+      "JOIN."
     ],
-    "respostaCorreta": "ELT (Extract Transform Load - extração e transformação de dados).",
-    "justificativa": "A ELT (Extract Transform Load - extração e transformação de dados) é uma técnica de variação moderna do processo antigo de extração, transformação e carregamento de dados na qual as transformações ocorrem antes do carregamento dos dados. A execução de transformações antes da fase de carregamento resulta em um processo de replicação de dados mais complexo. CRM e ERP são sistemas empresariais que alimentam o data warehouse; OLAP e Data Mining ocorrem nas pontas da arquitetura, geralmente nos usuários da tecnologia."
+    "respostaCorreta": "OUTER.",
+    "justificativa": "Para representar uma junção externa, utiliza-se a cláusula OUTER, porém opcionalmente, uma vez que o que caracteriza as junções externas são as cláusulas LEFT, RIGHT e FULL."
   },
   {
     "id": 15,
     "categoria": "UA",
-    "pergunta": "No modelo de maturidade de seis etapas proposto para implementação de um data warehouse (DW), a fase final, conhecida como avançada, é constituída de duas fases: adulto e sábio. Esse período é ilustrado, na prática, pela operação do DW dentro das operações. Das opções a seguir, qual afirmação melhor caracteriza a fase avançada?",
+    "pergunta": "A relação (ALUNO-DISCIPLINA) é o resultado da execução de uma junção específica (Imagem: https://statics-marketplace.plataforma.grupoa.education/sagah/2478c28c-e88c-4301-8782-019d55f4a973/73e6c970-1334-4f80-882b-7d5f5731357e.png). Qual é essa junção?",
     "respostas": [
-      "Nessa fase, o principal elemento da rede são os data marts, servidores locais responsáveis por concentrar e processar todos os dados da empresa e disponibilizá-los em tempo real.",
-      "Nessa fase, a organização já está com o conceito de integração de dados amadurecido, e toda a estrutura da empresa foi transformada para atender essa nova realidade. Agora, devem-se expandir os serviços de Bl para outras empresas.",
-      "Na fase avançada, as empresas utilizam setores estratégicos para a consolidação dos dados, e diariamente é reportado um relatório, que é enviado por e-mail para todos os funcionários.",
-      "As planilhas (ou spreadmarts) são a principal característica dessa fase, pois os gestores e tomadores de decisão se baseiam nelas para fazer apresentações em dashboards.",
-      "Informações descentralizadas, trabalho manual e falta de automatização dos processos são características fundamentais que representam a fase avançada dentro do modelo de maturidade de implantação de um DW."
+      "LEFT OUTER JOIN.",
+      "RIGHT OUTER JOIN.",
+      "FULL OUTER JOIN.",
+      "INNER JOIN.",
+      "NATURAL JOIN."
     ],
-    "respostaCorreta": "Nessa fase, a organização já está com o conceito de integração de dados amadurecido, e toda a estrutura da empresa foi transformada para atender essa nova realidade. Agora, devem-se expandir os serviços de Bl para outras empresas.",
-    "justificativa": "Na fase avançada, as organizações assumem um firme compromisso de alcançar uma única versão das informações. A organização já está com o conceito de integração de dados amadurecido, e toda a estrutura da empresa foi transformada para atender essa nova realidade. Os executivos veem os dados como um ativo corporativo que é tão valioso quanto pessoas, equipamentos e dinheiro. Planilhas, serviços manuais e informações descentralizadas são características das fases iniciais, e a instalação de data marts (servidores) caracteriza o primeiro passo para a automatização e a consolidação das informações."
+    "respostaCorreta": "FULL OUTER JOIN.",
+    "justificativa": "A junção externa correspondente à relação (ALUNO-DISCIPLINA) que retorna o resultado apresentado é FULL OUTER JOIN, em que são apresentadas todas as tuplas das duas tabelas relacionadas."
   },
   {
     "id": 16,
     "categoria": "UA",
-    "pergunta": "Leia atentamento o texto a seguir: As ferramentas de BI podem fornecer uma visão sistêmica do negócio, sendo seu objetivo principal transformar grandes quantidades de dados em informações de qualidade para a tomada de decisões. Através delas, é possível cruzar dados, visualizar informações em várias dimensões e analisar os principais indicadores de desempenho empresarial. (BATISTA, 2004, . 24) Sobre as aplicações do business intelligence, escolha a alternativa que corresponde, respectivamente, aos sistemas de transações e aos sistemas de análise de informações.",
+    "pergunta": "Em um contexto geral, o Data Lake representa um repositório para grandes quantidades de dados. Portanto, pode-se afirmar que o Data Lake é:",
     "respostas": [
-      "ROLAP (Relational Online Analytical Processing) e OLTP (Offline Transaction Processing).",
-      "MOLAP (Multidimensional Online Analytical Processing) e OLTP (Offline Transaction Processing).",
-      "OLAP (Online Analytical Processing) e OLTP (Offline Transaction Processing).",
-      "ROLAP (Relational Online Analytical Processing) e OLAP (Online Analytical Processing).",
-      "MOLAP (Multidimensional Online Analytical Processing) e ROLAP (Relational Online Analytical Processing)."
+      "uma tecnologia para Big Data.",
+      "um pântano de dados dentro de Big Data.",
+      "uma linguagem de programação.",
+      "um banco de dados relacional.",
+      "um software para Big Data."
     ],
-    "respostaCorreta": "OLAP (Online Analytical Processing) e OLTP (Offline Transaction Processing).",
-    "justificativa": "OLAP (Online Analytical Processing) e OLTP (Offline Transaction Processing) são aplicados no BI. O OLTP é voltado para sistemas de transações e regras de negócio aplicadas no sistema, como um sistema de controle de estoque, por exemplo. Já o OLAP é voltado para a análise das informações, ou seja, cálculos mais complexos. Trata-se de um sistema de modelagem voltado para desempenho, simplificado e sem um formato previamente determinado. Um exemplo comum são os sistemas de apoio à decisão, ou seja, sistema de consultas às informações analíticas da empresa por meio do qual é possível fazer qualquer tipo de solicitação e, assim, obter a resposta quase que de imediato. A flexibilidade do sistema e muitas outras vantagens irão possibilitar que o gestor tome sua decisão de forma rápida e eficiente. As ferramentas OLAP são voltadas ao processamento analítico de diferentes modelagens de bancos de dados. Elas podem ser subdivididas, sendo as MOLAP específicas para bancos de dados multidimensionais, enquanto as ROLAP específicas para bancos de dados relacionais."
+    "respostaCorreta": "uma tecnologia para Big Data.",
+    "justificativa": "Um Data Lake é um conceito dentro de Big Data e, portanto, uma tecnologia. Não é um software único, nem linguagem de programação ou banco relacional."
   },
   {
     "id": 17,
     "categoria": "UA",
-    "pergunta": "O data warehouse é um recurso cada vez mais utilizado em grandes empresas na busca por informações que possam fundamentar decisões acertadas por parte dos gestores. Sobre data warehouse, é correto afirmar que:",
+    "pergunta": "O Apache Hadoop apresenta um ecossistema de tecnologias que auxiliam no gerenciamento de dados. Quais dos nomes a seguir fazem parte desse ecossistema (como ferramentas auxiliares)?",
     "respostas": [
-      "as informações são constantemente atualizadas para que os gestores sejam informados em tempo real.",
-      "tem, como fonte de dados, sistemas OLAP. ou vários bancos de dados operacionais, arquivos simples e até mesmo serviços Web.",
-      "o OLAP faz uma análise analítica específica de pequenos conjuntos de dados.",
-      "o OLTP trabalha com análises superficiais de eventos esporádicos.",
-      "o OLAP apoia decisões em nível estratégico, enquanto o OLTP auxilia no monitoramento operacional."
+      "Hadoop Common e Hadoop Data Map.",
+      "Hadoop Code e Hadoop Yarn.",
+      "Apache Spark e Apache Sqoop.",
+      "Hadoop MapReduce e Hadoop Data Start.",
+      "HDFS e Hadoop Point."
     ],
-    "respostaCorreta": "o OLAP apoia decisões em nível estratégico, enquanto o OLTP auxilia no monitoramento operacional.",
-    "justificativa": "O OLAP produz análises mais gerais da empresa utilizando grandes conjuntos de dados e tem como foco ajudar o gestor estratégico a conhecer cenários amplos da organização. Já o OLTP trata de dados que representam eventos rotineiros, produzindo, então, informações importantes para o nível operacional. O data warehouse tem como característica armazenar dados que não serão alterados e que serão utilizados para seus processos. Desse modo, as informações de um data warehouse não são constantemente atualizadas. Pelo contrário, os dados não são atualizados em tempo real, por isso ele tem uma característica que o define como não volátil, apresentando mais dados históricos, armazenados por muitos meses ou até anos. Além disso, ele costuma ser um recurso por trás dos sistemas de informações gerenciais, pois guarda informações importantes por apoiarem o nível de gestão. Um data warehouse tem diversas fontes transacionais de dados do tipo OLTP, desde um ou vários bancos de dados operacionais, arquivos simples e até mesmo serviços Web."
+    "respostaCorreta": "Apache Spark e Apache Sqoop.",
+    "justificativa": "Fazem parte do ecossistema as tecnologias: Apache Sqoop e Apache Spark. Componentes como Common, MapReduce e HDFS são partes do próprio Hadoop, não ferramentas do ecossistema externo."
   },
   {
     "id": 18,
     "categoria": "UA",
-    "pergunta": "Existe uma grande diferença entre os data warehouses e os bancos de dados operacionais. Estes últimos são os tradicionais sistemas de consulta às bases de dados, com pesquisas estruturadas. Qualquer nova pesquisa exigirá sempre o trabalho de um programador para promover as alterações necessárias no sistema, que sempre vai demandar alguns dias de serviço, o que, em caso de decisões estratégicas, é totalmente inviável. No caso dos data warehouses, uma nova pesquisa pode ser criada em minutos por meio de ferramentas de garimpagem de dados. Assinale a alternativa que indica as principais características dos bancos de dados operacionais.",
+    "pergunta": "Uma das ferramentas que ganhou mais notoriedade nos últimos anos é o Apache Spark. Qual é o seu diferencial?",
     "respostas": [
-      "As atualizações são feitas em lote, isto é, o processo é executado de tempos em tempos, trabalhando com muitos dados de cada vez.",
-      "Normalmente, as consultas são muito complexas, porque geralmente não são estruturadas.",
-      "São orientados a processos de negócios, atendendo sempre a poucos usuários e contendo muitos dados históricos.",
-      "São orientados a transações, atendendo a muitos usuários simultaneamente, geralmente de pequeno porte, e contendo dados atuais.",
-      "Seu conteúdo é composto por dados históricos, não normalizados."
+      "O Apache Spark tem como diferencial o uso da escrita em memória, em vez de fazer várias chamadas ao disco rígido, aumentando sua velocidade no processamento dos dados.",
+      "O Apache Spark tem como diferencial ser um framework gratuito, visto que não há muitas tecnologias desse porte disponíveis gratuitamente no mercado de Data Science.",
+      "O Apache Spark tem como diferencial uma comunicação efetiva com o framework Hadoop, fazendo com que o processamento dos dados seja privilegiado.",
+      "O Apache Spark tem como diferencial o processamento em paralelo de gigantescas e massivas quantidades de dados.",
+      "O Apache Spark tem como diferencial o armazenamento de dados, além do processamento."
     ],
-    "respostaCorreta": "São orientados a transações, atendendo a muitos usuários simultaneamente, geralmente de pequeno porte, e contendo dados atuais.",
-    "justificativa": "Os bancos de dados operacionais são orientados a transações e apresentam dados atualizados, atendendo a muitos usuários simultaneamente, geralmente de pequeno porte. Já os data warehouses têm como características as atualizações feitas em lote, isto é, o processo é executado de tempos em tempos, trabalhando com muitos dados de cada vez. Além disso, normalmente as consultas são muito complexas, porque não são estruturadas. Os data warehouses são orientados a processos de negócios, atendendo sempre a poucos usuários e contendo muitos dados históricos. O conteúdo armazenado pelos data warehouses é composto por dados históricos e não normalizados. Os bancos de dados geralmente são normalizados, o que significa que muito trabalho é feito para garantir que haja uma cópia exclusiva de qualquer bit de informação, o que é importante por razões de desempenho e consistência."
+    "respostaCorreta": "O Apache Spark tem como diferencial o uso da escrita em memória, em vez de fazer várias chamadas ao disco rígido, aumentando sua velocidade no processamento dos dados.",
+    "justificativa": "O Apache Spark faz chamadas à memória, evitando ficar acionando o disco rígido a todo momento, o que aumenta a velocidade."
   },
   {
     "id": 19,
     "categoria": "UA",
-    "pergunta": "Um data warehouse é projetado para apoiar o processo de tomada de decisão por meio da coleta, consolidação, análise e pesquisa de dados. Nesse sentido, as fontes de bases de dados dos data warehouses são criadas a partir de:",
+    "pergunta": "As camadas do ecossistema de Big Data são responsáveis por cuidar de todo o processo que um dado percorre. Quais são essas camadas?",
     "respostas": [
-      "data marts.",
-      "business intelligence.",
-      "bases transacionais internas e externas.",
-      "outras bases de data warehouse.",
-      "arquivos de sistema."
+      "Camada fontes de dados, camada armazenamento, camada manipulação e camada consumo.",
+      "Camada armazenamento, camada salvar, camada análise, camada consumo e camada segurança.",
+      "Camada fontes de dados, camada armazenamento, camada análise e camada impressão.",
+      "Camada ingestão, camada armazenamento, camada processamento, camada apresentação e camada segurança.",
+      "Camada Data Lake, camada armazenamento, camada ingestão e camada consumo."
     ],
-    "respostaCorreta": "bases transacionais internas e externas.",
-    "justificativa": "O data warehouse coleta informações de diversas bases transacionais internas e externas das organizações. As fontes internas são informações adquiridas e consolidadas de diferentes filiais dentro da própria organização. Exemplos de fontes de dados internas podem ser: pedidos da equipe de vendas, transações da contabilidade, pedidos remanescentes do gerenciamento de estoque, leads de Marketing e qualquer outra fonte interna que colete informações sobre clientes. Já fontes externas são dados que não foram coletados pela organização. Esses dados seriam obtidos de uma fonte externa à organização, como, por exemplo, obtenção de acesso a um banco de dados proprietário."
+    "respostaCorreta": "Camada ingestão, camada armazenamento, camada processamento, camada apresentação e camada segurança.",
+    "justificativa": "As camadas do ecossistema de Big Data são: camada ingestão, camada armazenamento, camada processamento, camada apresentação e camada segurança."
   },
   {
     "id": 20,
     "categoria": "UA",
-    "pergunta": "Os dados armazenados nos data warehouses são desnormalizados, o que permite fácil agregação e detalhamento dos dados. Além disso, eles permitem que os gestores obtenham informações sobre o que aconteceu, por que aconteceu, o que acontecerá e o que fazer a respeito de determinada situação durante uma tomada de decisão. Por outro lado, os bancos de dados operacionais são aplicativos únicos criados para registrar rapidamente processos comerciais específicos, como transações com cartão de crédito. Além disso, diferente da natureza não normalizada dos data warehouses, a estrutura de dados para bancos de dados é altamente normalizada para facilitar a atomicidade, a consistência, o isolamento e a consistência dos dados. Sobre a diferença estrutural entre bancos de dados operacionais e data warehouses é correto afirmar:",
+    "pergunta": "Data Lake e Data Warehouse apresentam diferenças significativas em seus conceitos. Qual é a única coisa que ambos têm em comum?",
     "respostas": [
-      "O cruzamento de dados de diferentes tabelas para criação de informações é menos complexo do que a leitura de um cubo em um data warehouse.",
-      "A extração de relacionamentos entre as informações é mais simples em bancos de dados operacionais.",
-      "Os data warehouses oferecem menos perspectivas de análise de informações do que os bancos de dados operacionais.",
-      "Dada uma mesma situação, os data warehouses podem representá-la com menos tabelas do que em um banco de dados operacional.",
-      "A estrutura utilizada pelos bancos de dados operacionais permite que representações tridimensionais sejam feitas."
+      "Ambos tratam exclusivamente de dados semiestruturados.",
+      "Ambos são projetados para atuação específica de profissionais da área de negócios.",
+      "Ambos são plataformas de armazenamento de código compartilhado similar ao Github.",
+      "Ambos são estruturas de execução de linguagens de programação orientadas a objetos.",
+      "Ambos funcionam como repositórios para grandes quantidades de dados."
     ],
-    "respostaCorreta": "O cruzamento de dados de diferentes tabelas para criação de informações é menos complexo do que a leitura de um cubo em um data warehouse.",
-    "justificativa": "A facilidade de ler os dados de um cubo é o que estimula o uso dos data warehouses em relação aos bancos de dados operacionais, nos quais as perspectivas estão em tabelas diferentes e exigem um cruzamento demorado e custoso de informações para produção do mesmo resultado. Nos cubos, as relações entre os dados ficam explícitas e mais fácil de serem interpretadas, enquanto nos bancos de dados operacionais é preciso analisar e produzir essas relações. Os data warehouses permitem inserir diversas perspectivas para as informações, as chamadas dimensões. No caso dos bancos de dados operacionais, a perspectiva é sempre uma. Em determinadas situações, em que as informações têm três perspectivas, por exemplo, elas podem ser incluídas em um único cubo, no modelo multidimensional. Se fosse utilizado o modelo relacional, seriam necessárias três tabelas para representar a mesma situação. Os data warehouses comportam representações tridimensionais, que são feitas por meio dos cubos."
+    "respostaCorreta": "Ambos funcionam como repositórios para grandes quantidades de dados.",
+    "justificativa": "A única coisa que o Data Lake e o Data Warehouse têm em comum é a capacidade de armazenamento de grandes conjuntos de dados."
   },
   {
     "id": 21,
     "categoria": "UA",
-    "pergunta": "Que forma é utilizada para demonstrar a Modelagem Multidimensional?",
+    "pergunta": "Os dados podem ser considerados recursos ativos gerados automaticamente em toda atividade exercida; se tratados e analisados têm grande valor para o mercado. Assinale a alternativa que contempla a definição correta sobre o dado.",
     "respostas": [
-      "Quadrado.",
-      "Cubo.",
-      "Octógono.",
-      "Pirâmide.",
-      "Estrela."
+      "É uma quantidade de fatos não analisados.",
+      "Fornece significado contextualizado.",
+      "Pode ser definido como uma experiência.",
+      "O seu sentido é estabelecido quando apresentado só.",
+      "São ativos tecnológicos padronizadores."
     ],
-    "respostaCorreta": "Cubo.",
-    "justificativa": "O exemplo de um cubo demonstra a dimensões adequadas para demonstrar a Modelagem Multidimensional."
+    "respostaCorreta": "É uma quantidade de fatos não analisados.",
+    "justificativa": "Os dados representam uma sequência de fatos que ainda não passaram por análise."
   },
   {
     "id": 22,
     "categoria": "UA",
-    "pergunta": "Qual a principal função do OLAP?",
+    "pergunta": "Assinale a alternativa que apresenta os passos percorridos pelo dado durante seu uso na tomada de decisões corporativas.",
     "respostas": [
-      "Acessar e alterar dados corporativos.",
-      "Importar dados de SGBDs Diversos.",
-      "Verificar dados pessoais pelo usuário.",
-      "Consultar e analisar dados corporativos com alta performance.",
-      "Transformar os dados importados para um formato mais amigável."
+      "Tratamento, armazenamento, análise.",
+      "Armazenamento, análise, coleta e tratamento.",
+      "Coleta dos dados, armazenamento, tratamento e análise.",
+      "Análise, tratamento e armazenamento.",
+      "Tratamento, análise e coleta."
     ],
-    "respostaCorreta": "Consultar e analisar dados corporativos com alta performance.",
-    "justificativa": "A consulta e análise de dados em alta performance é o que melhor caracteriza a função de um OLAP. O OLAP não permite alterar dados, apenas consultá-los. O OLAP não faz importação de dados, e sim o Data Warehouse. O OLAP é uma ferramenta para tomada de decisão de empresas e não para consulta de dados pelo usuário. A transformação de dados é uma função das ferramentas de ETL e não do OLAP."
+    "respostaCorreta": "Coleta dos dados, armazenamento, tratamento e análise.",
+    "justificativa": "Primeiro ocorre a coleta, posteriormente eles são armazenados, tratados e, por fim, analisados."
   },
   {
     "id": 23,
     "categoria": "UA",
-    "pergunta": "São componentes de um modelo multidimensional OLAP:",
+    "pergunta": "A ciência de dados traz a multidisciplinaridade para o mundo dos dados, e, agindo em conjunto com tecnologias e ferramentas Big Data, pode contribuir para a geração e diversificação de novos negócios. Assinale a alternativa que traz algum princípio relacionado ao uso destes recursos.",
     "respostas": [
-      "Fatos, Histórico e Métodos.",
-      "Metodologia, Dimensões e Arquivos.",
-      "Dimensões, Medidas e Recursividade.",
-      "Fatos, Ponteiros e Hipóteses.",
-      "Fatos, Dimensões e Medidas."
+      "Permite o armazenamento dos dados antigos como critério para aprovação de investimentos em novas ferramentas.",
+      "O Big Data permite que dados sejam armazenados e utilizados após muitos anos, sem perder o valor.",
+      "Ferramentas e tecnologias Big Data são gratuitas e geram redução de custos para empresa.",
+      "A ciência dos dados aplica conceitos estatísticos nos dados em conjunto com tecnologias Big Data.",
+      "As tomadas de decisão dentro de uma empresa podem ser baseadas em análises primitivas dos dados com planilhas."
     ],
-    "respostaCorreta": "Fatos, Dimensões e Medidas.",
-    "justificativa": "Fatos, Dimensões e Medidas são componentes corretos de um modelo multidimensional."
+    "respostaCorreta": "A ciência dos dados aplica conceitos estatísticos nos dados em conjunto com tecnologias Big Data.",
+    "justificativa": "Além de dados estatísticos, a ciência de dados aplica o refinamento, a mineração, o armazenamento e a visualização dos dados."
   },
   {
     "id": 24,
     "categoria": "UA",
-    "pergunta": "São exemplos de esquemas de dados multidimensionais:",
+    "pergunta": "Assinale a alternativa que contém formas de como as empresas obtêm os dados de seus clientes para uso da ciência de dados e Big Data.",
     "respostas": [
-      "Estrela, Cubo e Pirâmide.",
-      "Floco de Neve e Constelação de Estrelas.",
-      "Estrela, Floco de Neve e Constelação de Fatos.",
-      "Quadrada, Circular e Linear.",
-      "Estrela, Bola de Neve e Galáxia."
+      "Por meio de abordagens pessoais em centros comerciais.",
+      "Por meio de correspondências.",
+      "Por meio de preenchimento de formulários em planilhas.",
+      "Por meio de ligações realizadas pelos call centers das empresas para seus clientes.",
+      "Por meio de aplicações de terceiros, identificação de dispositivo, perfil do usuário."
     ],
-    "respostaCorreta": "Estrela, Floco de Neve e Constelação de Fatos.",
-    "justificativa": "Os esquema de dados multidimensionais são Estrela, Floco de Neve e Constelação de Fatos."
+    "respostaCorreta": "Por meio de aplicações de terceiros, identificação de dispositivo, perfil do usuário.",
+    "justificativa": "O monitoramento dos dados dos usuários é feito por meio de aplicações de terceiros, mecanismos de busca, softwares especializados, cookies, dentre outros."
   },
   {
     "id": 25,
     "categoria": "UA",
-    "pergunta": "Qual a função de um Slice and Dice?",
+    "pergunta": "Assinale a alternativa que traz formas de como as empresas fazem uso dos dados de seus usuários para obter sucesso em seus negócios.",
     "respostas": [
-      "Fatiar os dados em porções menores.",
-      "Modificar a posição de uma informação, alterando linhas por colunas.",
-      "Aumentar a velocidade do Data Warehouse.",
-      "Atualizar os dados de um usuário específico.",
-      "Não existe essa função Slice and Dice."
+      "Para realizar compras em seus cadastros.",
+      "Fornecimento de serviços personalizados.",
+      "Para obter dados aleatórios que circulam na rede.",
+      "Para manter a preferência do cliente.",
+      "Para aplicar recurso de reconhecimento facial."
     ],
-    "respostaCorreta": "Modificar a posição de uma informação, alterando linhas por colunas.",
-    "justificativa": "Esta é a função de um Slice and Dice. Não é função do Slice and Dice fatiar os dados, aumentar a velocidade do Data Warehouse ou atualizar os dados de um usuário. A função 'Slice and Dice' existe e é muito utilizada."
-  },{
-    "id": 1,
-    "categoria": "slide",
-    "pergunta": "Qual é o principal objetivo da modelagem multidimensional em Business Intelligence?",
-    "respostas": [
-      "Organizar dados em bancos de dados relacionais para transações rápidas.",
-      "Criar backups de dados para segurança e recuperação de informações.",
-      "Facilitar a análise e consulta de dados, especialmente em Data Warehouses.",
-      "Conectar sistemas operacionais para troca de informações em tempo real.",
-      "Realizar processamento analítico com dados não estruturados."
-    ],
-    "respostaCorreta": "Facilitar a análise e consulta de dados, especialmente em Data Warehouses.",
-    "justificativa": "A modelagem multidimensional é uma técnica utilizada para organizar dados em sistemas de BI com o objetivo de facilitar a análise e a consulta rápida, especialmente em Data Warehouses[cite: 1781]."
-  },
-  {
-    "id": 2,
-    "categoria": "slide",
-    "pergunta": "Em um modelo dimensional, o que a tabela 'fato' contém?",
-    "respostas": [
-      "Informações descritivas como nome do produto e categoria.",
-      "Os dados quantitativos, como medidas e métricas sobre eventos de negócio.",
-      "Chaves primárias para relacionamentos com outras tabelas.",
-      "Dados temporais como dia, mês e ano.",
-      "Apenas informações não estruturadas."
-    ],
-    "respostaCorreta": "Os dados quantitativos, como medidas e métricas sobre eventos de negócio.",
-    "justificativa": "A tabela fato contém os dados quantitativos, como métricas e medidas, sobre eventos de negócio, por exemplo, uma venda[cite: 1785, 1797]."
-  },
-  {
-    "id": 3,
-    "categoria": "slide",
-    "pergunta": "Qual é o papel da 'tabela dimensão' em um modelo multidimensional?",
-    "respostas": [
-      "Armazenar dados numéricos sobre eventos de negócio.",
-      "Conter apenas fatos derivados e agregados para otimização.",
-      "Descrever as características dos fatos, fornecendo contexto para a análise.",
-      "Manter o histórico completo de todas as transações da empresa.",
-      "Guardar as chaves estrangeiras para a tabela fato."
-    ],
-    "respostaCorreta": "Descrever as características dos fatos, fornecendo contexto para a análise.",
-    "justificativa": "A tabela dimensão descreve as características dos fatos, fornecendo contexto para a análise[cite: 1789]. [cite_start]Ela armazena atributos descritivos que contextualizam os fatos, como informações de produtos, clientes ou tempo[cite: 1818]."
-  },
-  {
-    "id": 4,
-    "categoria": "slide",
-    "pergunta": "Como a relação entre a tabela 'fato' e a 'tabela dimensão' é estabelecida?",
-    "respostas": [
-      "Através de chaves primárias na tabela fato que se conectam a chaves estrangeiras nas dimensões.",
-      "Através de consultas SQL complexas, sem a necessidade de chaves.",
-      "Através de chaves estrangeiras na tabela fato que apontam para chaves primárias nas dimensões.",
-      "Não há relação direta, pois elas são tabelas independentes.",
-      "Somente por meio de uma tabela de ligação auxiliar."
-    ],
-    "respostaCorreta": "Através de chaves estrangeiras na tabela fato que apontam para chaves primárias nas dimensões.",
-    "justificativa": "A relação é feita por meio de chaves: a tabela fato possui chaves estrangeiras que apontam para as chaves primárias nas tabelas dimensão[cite: 1820]."
-  },
-  {
-    "id": 5,
-    "categoria": "slide",
-    "pergunta": "Qual é a principal vantagem da utilização de tabelas fato agregadas?",
-    "respostas": [
-      "Permitem análises mais detalhadas e com maior granularidade.",
-      "Oferecem maior segurança para os dados sensíveis do negócio.",
-      "Melhoram o desempenho das consultas ao resumir os dados.",
-      "Eliminam completamente a necessidade de tabelas dimensão.",
-      "Facilitam o relacionamento entre diferentes fatos."
-    ],
-    "respostaCorreta": "Melhoram o desempenho das consultas ao resumir os dados.",
-   "justificativa": "Tabelas fato agregadas são versões resumidas da tabela fato original, criadas para melhorar o desempenho das consultas[cite: 1801]."
-  },
-  {
-    "id": 6,
-    "categoria": "slide",
-    "pergunta": "O que a granularidade de uma tabela fato representa?",
-    "respostas": [
-      "O nível de detalhamento dos registros.",
-      "A quantidade de colunas na tabela.",
-      "O tipo de relacionamento entre as tabelas.",
-      "A quantidade total de dados armazenados.",
-      "O número de tabelas dimensão relacionadas."
-    ],
-    "respostaCorreta": "O nível de detalhamento dos registros.",
-    "justificativa": "A granularidade em uma tabela fato representa o nível de detalhamento dos registros[cite: 1938]."
-  },
-  {
-    "id": 7,
-    "categoria": "slide",
-    "pergunta": "A dimensão 'tempo' é considerada fundamental em Business Intelligence porque:",
-    "respostas": [
-      "Serve apenas para armazenar a data da transação.",
-      "Permite análises históricas, tendências e projeções.",
-      "É a única dimensão necessária em qualquer modelo dimensional.",
-      "Gera duplicidade de registros, o que é útil para análises.",
-      "Não pode ser relacionada com a tabela fato."
-    ],
-    "respostaCorreta": "Permite análises históricas, tendências e projeções.",
-    "justificativa": "A dimensão tempo é fundamental para BI porque permite análises históricas e tendências[cite: 1953]. [cite_start]Ela possibilita comparações no tempo, tendências e projeções[cite: 1795]."
-  },
-  {
-    "id": 8,
-    "categoria": "slide",
-    "pergunta": "Qual é o principal uso das ferramentas OLAP (Online Analytical Processing) em um modelo dimensional?",
-    "respostas": [
-      "Para a inserção e atualização de dados transacionais.",
-      "Para automatizar a extração e transformação de dados.",
-      "Para gerenciar os relacionamentos entre tabelas.",
-      "Para facilitar o acesso multidimensional e a análise dos dados.",
-      "Para criar relatórios estáticos e não interativos."
-    ],
-    "respostaCorreta": "Para facilitar o acesso multidimensional e a análise dos dados.",
-    "justificativa": "Ferramentas OLAP facilitam o acesso multidimensional às consultas[cite: 1806]. [cite_start]Elas permitem consultar e analisar dados corporativos com alta performance[cite: 1573]."
-  },
-  {
-    "id": 9,
-    "categoria": "slide",
-    "pergunta": "No modelo dimensional, o que acontece no 'esquema floco de neve' em comparação com o 'esquema estrela'?",
-    "respostas": [
-      "A tabela fato contém mais dados agregados.",
-      "As tabelas dimensão são normalizadas.",
-      "A granularidade dos dados é sempre menor.",
-      "O número de tabelas fato é maior.",
-      "O relacionamento entre tabelas é mais simples."
-    ],
-    "respostaCorreta": "As tabelas dimensão são normalizadas.",
-    "justificativa": "O esquema floco de neve normaliza as tabelas dimensão, enquanto no esquema estrela elas são desnormalizadas[cite: 1984]."
-  },
-  {
-    "id": 10,
-    "categoria": "slide",
-    "pergunta": "Em um contexto de análise de varejo, qual seria um exemplo de 'fato' e um exemplo de 'dimensão'?",
-    "respostas": [
-      "Fato: Nome do cliente; Dimensão: Valor da venda.",
-      "Fato: Quantidade vendida; Dimensão: Categoria de produto.",
-      "Fato: Nome da loja; Dimensão: Data da transação.",
-      "Fato: Categoria de produto; Dimensão: Valor total.",
-      "Fato: Data da transação; Dimensão: Nome do cliente."
-    ],
-    "respostaCorreta": "Fato: Quantidade vendida; Dimensão: Categoria de produto.",
-    "justificativa": "A tabela fato guarda métricas de eventos, como a 'quantidade vendida'[cite: 1990]. [cite_start]A dimensão descreve os detalhes desse evento, como a 'categoria de produto'[cite: 1818]."
-  },
-  {
-    "id": 11,
-    "categoria": "slide",
-    "pergunta": "Qual das seguintes alternativas descreve corretamente os componentes de um modelo multidimensional OLAP?",
-    "respostas": [
-      "Fatos, Histórico e Métodos.",
-      "Dimensões, Medidas e Recursividade.",
-      "Fatos, Dimensões e Medidas.",
-      "Metodologia, Dimensões e Arquivos.",
-      "Fatos, Ponteiros e Hipóteses."
-    ],
-    "respostaCorreta": "Fatos, Dimensões e Medidas.",
-    "justificativa": "Os componentes corretos de um modelo multidimensional são Fatos, Dimensões e Medidas[cite: 1606]."
-  },
-  {
-    "id": 12,
-    "categoria": "slide",
-    "pergunta": "A tabela 'dummy' em modelagem multidimensional pode ser usada para qual finalidade?",
-    "respostas": [
-      "Para armazenar métricas agregadas.",
-      "Como uma tabela fato auxiliar para análises específicas ou preenchimento.",
-      "Para descrever as características de um produto.",
-      "Para eliminar a necessidade de chaves estrangeiras.",
-      "Para armazenar dados desnormalizados."
-    ],
-    "respostaCorreta": "Como uma tabela fato auxiliar para análises específicas ou preenchimento.",
-    "justificativa": "Uma 'tabela dummy' pode ser usada como uma tabela fato auxiliar para análises específicas ou para preenchimento de dados[cite: 1787]."
-  },
-  {
-    "id": 13,
-    "categoria": "slide",
-    "pergunta": "Qual é a principal função de um Data Warehouse em Business Intelligence?",
-    "respostas": [
-      "Apenas processar transações online.",
-      "Armazenar, transformar e consultar grandes volumes de dados.",
-      "Atender somente operações de atualização de dados.",
-      "Fornecer dados exclusivamente externos para a empresa.",
-      "Realizar a análise de sentimentos em mídias sociais."
-    ],
-    "respostaCorreta": "Armazenar, transformar e consultar grandes volumes de dados.",
-    "justificativa": "Um Data Warehouse serve para integrar e analisar um grande volume de dados, auxiliando na tomada de decisões[cite: 1986]. [cite_start]Ele é projetado para apoiar o processo de tomada de decisão por meio da coleta, consolidação, análise e pesquisa de dados[cite: 1482]."
-  },
-  {
-    "id": 14,
-    "categoria": "slide",
-    "pergunta": "No contexto da modelagem multidimensional, o que o termo 'Fatos' representa?",
-    "respostas": [
-      "Os atributos descritivos do negócio, como nome do cliente.",
-      "A granularidade dos dados em uma tabela.",
-      "A entidade de análise que contém os dados numéricos, como uma venda.",
-      "O tipo de relacionamento entre as tabelas.",
-      "O nível de detalhamento dos registros."
-    ],
-    "respostaCorreta": "A entidade de análise que contém os dados numéricos, como uma venda.",
-    "justificativa": "O Fato representa a entidade de análise, por exemplo, uma venda, e contém os dados quantitativos, ou seja, as medidas[cite: 1785, 1797]."
-  },
-  {
-    "id": 15,
-    "categoria": "slide",
-    "pergunta": "Por que o modelo dimensional é considerado eficiente para consultas rápidas?",
-    "respostas": [
-      "Porque ele usa apenas dados não estruturados.",
-      "Porque as tabelas são altamente normalizadas.",
-      "Porque sua estrutura em forma de estrela é eficiente para consultas e análises detalhadas.",
-      "Porque as tabelas fato não se relacionam com as tabelas dimensão.",
-      "Porque ele armazena dados de forma descentralizada."
-    ],
-    "respostaCorreta": "Porque sua estrutura em forma de estrela é eficiente para consultas e análises detalhadas.",
-    "justificativa": "A estrutura em forma de estrela (star schema) é eficiente para consultas rápidas e análises detalhadas, facilitando a exploração dos dados em BI[cite: 1827]."
+    "respostaCorreta": "Fornecimento de serviços personalizados.",
+    "justificativa": "As empresas utilizam as análises para notificações, serviços de geolocalização, conteúdos personalizados e integração de contas."
   }
 ]
+
