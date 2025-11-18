@@ -3,25 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo de Questões - Games Provas</title>
+    <title>Quiz OLAP e ETL 2 - JAMES</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configuração personalizada do Tailwind com paleta de cores -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'preto-profundo': '#0a0a0a',
-                        'vermelho-escuro': '#8b0000',
-                        'vermelho-neon': '#ff0000',
-                        'rosa-neon': '#ff006e'
-                    }
-                }
-            }
-        }
-    </script>
     <style>
+        /* Configuração de cores customizadas */
+        :root {
+            --preto-profundo: #0a0a0a;
+            --vermelho-escuro: #8b0000;
+            --vermelho-neon: #ff0000;
+            --rosa-neon: #ff006e;
+        }
+        
+        /* Estilos base */
+        body {
+            background: linear-gradient(to bottom right, var(--preto-profundo), var(--vermelho-escuro));
+            min-height: 100vh;
+            color: white;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Container principal */
+        #app {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
         /* Estilos personalizados para os links de imagem */
         .link-imagem {
             box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
@@ -54,14 +66,6 @@
             animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
         
-        /* Estilo para o summary */
-        details summary {
-            list-style: none;
-        }
-        details summary::-webkit-details-marker {
-            display: none;
-        }
-        
         /* Ajustes adicionais para melhorar visualização em mobile */
         @media (max-width: 640px) {
             #pergunta-texto {
@@ -69,18 +73,23 @@
                 letter-spacing: 0.01em;
                 font-size: 0.95rem;
             }
-            
-            /* Melhora espaçamento vertical em telas pequenas */
-            .space-y-4 > :not([hidden]) ~ :not([hidden]) {
-                margin-top: 0.75rem;
-            }
-            
-            /* Ajusta o padding das opções em telas pequenas */
-            #opcoes-resposta button {
-                padding: 0.75rem;
-            }
         }
     </style>
+    <script>
+        // Configuração do Tailwind
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'preto-profundo': '#0a0a0a',
+                        'vermelho-escuro': '#8b0000',
+                        'vermelho-neon': '#ff0000',
+                        'rosa-neon': '#ff006e'
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 <body class="bg-gradient-to-br from-preto-profundo to-vermelho-escuro min-h-screen">
     <!-- Container principal do jogo -->

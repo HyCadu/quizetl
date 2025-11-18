@@ -63,7 +63,8 @@ document.addEventListener('DOMContentLoaded', async function() {
  */
 async function carregarQuestoes() {
     try {
-        const response = await fetch('questoes.json');
+        // Tenta carregar do caminho relativo
+        const response = await fetch('./questoes.json');
         if (!response.ok) {
             throw new Error(`Erro HTTP: ${response.status}`);
         }
@@ -71,6 +72,8 @@ async function carregarQuestoes() {
         console.log(`${questoes.length} questões carregadas com sucesso.`);
     } catch (error) {
         console.error('Erro ao carregar questões:', error);
+        // Exibe mensagem amigável ao usuário
+        alert('❌ Erro ao carregar as questões. Verifique se o arquivo questoes.json está no mesmo diretório que o index.html');
         throw error;
     }
 }
