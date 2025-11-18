@@ -198,7 +198,7 @@
   {
     "id": 15,
     "categoria": "UA",
-    "pergunta": "A relação (ALUNO-DISCIPLINA) é o resultado da execução de uma junção específica (Imagem: https://statics-marketplace.plataforma.grupoa.education/sagah/2478c28c-e88c-4301-8782-019d55f4a973/73e6c970-1334-4f80-882b-7d5f5731357e.png). Qual é essa junção?",
+    "pergunta": "A relação (ALUNO-DISCIPLINA) é o resultado da execução de uma junção específica (Imagem: https://statics-marketplace.plataforma.grupoa.education/sagah/2478c28c-e88c-4301-8782-019d55f4a973/73e6c970-1334-4f80-882b-7d5f5731357e.png ). Qual é essa junção?",
     "respostas": [
       "LEFT OUTER JOIN.",
       "RIGHT OUTER JOIN.",
