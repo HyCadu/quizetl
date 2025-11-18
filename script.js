@@ -170,41 +170,7 @@ function atualizarInterfaceJogo() {
     
     // Cria os botões de resposta
     respostasEmbaralhadas.forEach((resposta, index) => {
-        // Verifica se a resposta é uma URL de imagem
-        const isImagemURL = /^https?:\/\/.*\.(jpg|jpeg|png|gif|webp|svg)$/i.test(resposta.trim());
-        
-        const botaoResposta = document.createElement('button');
-        
-        if (isImagemURL) {
-            // Se for uma imagem, exibe a imagem diretamente
-            botaoResposta.className = 'w-full p-4 text-left bg-gray-800 hover:bg-gray-700 border-2 border-gray-600 hover:border-red-500 rounded-xl transition-all duration-300 text-white font-medium';
-            botaoResposta.innerHTML = `
-                <div class="flex items-center gap-3 mb-2">
-                    <span class="inline-block w-8 h-8 bg-gray-700 rounded-full text-center leading-8">${String.fromCharCode(65 + index)}</span>
-                    <span class="text-sm text-gray-400">Opção ${String.fromCharCode(65 + index)}</span>
-                </div>
-                <div class="mt-2 p-2 bg-gray-900 rounded-lg">
-                    <img src="${resposta}" alt="Opção ${String.fromCharCode(65 + index)}" class="imagem-questao max-w-full h-auto rounded-lg border border-gray-700" 
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
-                         onload="this.nextElementSibling.style.display='none';">
-                    <div style="display:block;" class="text-yellow-400 text-xs mt-2 flex items-center gap-2">
-                        <span>⏳</span>
-                        <span>Carregando imagem...</span>
-                    </div>
-                </div>
-            `;
-        } else {
-            // Resposta normal de texto
-            botaoResposta.className = 'w-full p-4 text-left bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-xl transition-all duration-300 text-white font-medium';
-            botaoResposta.innerHTML = `
-                <span class="inline-block w-8 h-8 bg-gray-700 rounded-full text-center leading-8 mr-4">${String.fromCharCode(65 + index)}</span>
-                ${resposta}
-            `;
-        }
-        
-        // Adiciona evento de clique
-        botaoResposta.addEventListener('click', () => selecionarResposta(resposta, botaoResposta));
-        
+        const botaoResposta = renderizarResposta(resposta, index);
         opcoesResposta.appendChild(botaoResposta);
     });
     
@@ -214,100 +180,86 @@ function atualizarInterfaceJogo() {
 }
 
 /**
+ * RENDERIZA RESPOSTA
+ * Cria o botão de resposta com base no conteúdo (texto ou imagem)
+ * @param {string} resposta - Conteúdo da resposta (pode ser texto ou URL de imagem)
+ * @param {number} index - Índice da resposta (para identificação da opção)
+ * @returns {HTMLElement} - Botão de resposta renderizado
+ */
+function renderizarResposta(resposta, index) {
+    const botaoResposta = document.createElement('button');
+    const isImagemURL = /\.(jpg|jpeg|png|gif|webp)$/i.test(resposta) || resposta.includes('http');
+    
+    if (isImagemURL) {
+        botaoResposta.className = 'btn-resposta';
+        botaoResposta.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                <span class="letra-opcao">${String.fromCharCode(65 + index)}</span>
+                <span style="font-size: 0.875rem; color: #9ca3af;">Opção ${String.fromCharCode(65 + index)}</span>
+            </div>
+            <div class="resposta-imagem-container">
+                <img src="${resposta}" alt="Opção ${String.fromCharCode(65 + index)}" class="imagem-questao" 
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                     onload="this.nextElementSibling.style.display='none';">
+                <div class="loading-imagem" style="display:flex;">
+                    <span>⏳</span>
+                    <span>Carregando imagem...</span>
+                </div>
+            </div>
+        `;
+    } else {
+        botaoResposta.className = 'btn-resposta';
+        botaoResposta.innerHTML = `
+            <span class="letra-opcao">${String.fromCharCode(65 + index)}</span>
+            ${resposta}
+        `;
+    }
+    
+    botaoResposta.addEventListener('click', () => selecionarResposta(resposta, botaoResposta));
+    return botaoResposta;
+}
+
+/**
  * SELEÇÃO DE RESPOSTA
  * Processa a resposta selecionada pelo usuário
  * @param {string} resposta - Resposta selecionada
  * @param {HTMLElement} elementoBotao - Elemento HTML do botão clicado
  */
-function selecionarResposta(resposta, elementoBotao) {
-    respostaSelecionada = resposta;
-    const questao = questoesFiltradas[questaoAtual];
+function selecionarResposta(respostaSelecionada, botaoClicado) {
+    if (respostaJaSelecionada) return;
     
-    // Verifica se a resposta é uma URL de imagem
-    const isImagemURL = /^https?:\/\/.*\.(jpg|jpeg|png|gif|webp|svg)$/i.test(resposta.trim());
+    respostaJaSelecionada = true;
+    const questaoAtual = questoesEmbaralhadas[indiceQuestaoAtual];
+    const acertou = respostaSelecionada === questaoAtual.respostaCorreta;
     
-    // Desabilita todos os botões para evitar múltiplas seleções
-    const botoes = opcoesResposta.querySelectorAll('button');
-    botoes.forEach(botao => {
-        botao.disabled = true;
-        botao.classList.remove('hover:bg-gray-700');
-    });
-    
-    // Aplica feedback visual baseado na resposta
-    if (resposta === questao.respostaCorreta) {
-        // Resposta correta
-        elementoBotao.className = 'w-full p-4 text-left bg-green-600 border-2 border-green-400 rounded-xl text-white font-medium';
-        
-        if (isImagemURL) {
-            elementoBotao.innerHTML = `
-                <div class="flex items-center gap-3 mb-2">
-                    <span class="inline-block w-8 h-8 bg-green-400 rounded-full text-center leading-8">✓</span>
-                    <span class="text-sm font-bold">RESPOSTA CORRETA!</span>
-                </div>
-                <div class="mt-2 p-2 bg-green-800 rounded-lg border border-green-400">
-                    <img src="${resposta}" alt="Resposta correta" class="imagem-questao max-w-full h-auto rounded-lg">
-                </div>
-            `;
-        } else {
-            elementoBotao.innerHTML = `
-                <span class="inline-block w-8 h-8 bg-green-400 rounded-full text-center leading-8 mr-4">✓</span>
-                ${resposta}
-            `;
-        }
+    if (acertou) {
         pontuacao++;
+        botaoClicado.classList.add('correta');
     } else {
-        // Resposta incorreta
-        elementoBotao.className = 'w-full p-4 text-left bg-red-600 border-2 border-red-400 rounded-xl text-white font-medium';
+        botaoClicado.classList.add('incorreta');
         
-        if (isImagemURL) {
-            elementoBotao.innerHTML = `
-                <div class="flex items-center gap-3 mb-2">
-                    <span class="inline-block w-8 h-8 bg-red-400 rounded-full text-center leading-8">✗</span>
-                    <span class="text-sm font-bold">RESPOSTA INCORRETA</span>
-                </div>
-                <div class="mt-2 p-2 bg-red-800 rounded-lg border border-red-400">
-                    <img src="${resposta}" alt="Resposta incorreta" class="imagem-questao max-w-full h-auto rounded-lg">
-                </div>
-            `;
-        } else {
-            elementoBotao.innerHTML = `
-                <span class="inline-block w-8 h-8 bg-red-400 rounded-full text-center leading-8 mr-4">✗</span>
-                ${resposta}
-            `;
-        }
-        
-        // Destaca a resposta correta
-        questao.respostas.forEach((respostaOpcao, index) => {
-            if (respostaOpcao === questao.respostaCorreta) {
-                const botaoCorreto = botoes[index];
-                const isImagemCorretaURL = /^https?:\/\/.*\.(jpg|jpeg|png|gif|webp|svg)$/i.test(respostaOpcao.trim());
-                
-                botaoCorreto.className = 'w-full p-4 text-left bg-green-600 border-2 border-green-400 rounded-xl text-white font-medium';
-                
-                if (isImagemCorretaURL) {
-                    botaoCorreto.innerHTML = `
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="inline-block w-8 h-8 bg-green-400 rounded-full text-center leading-8">✓</span>
-                            <span class="text-sm font-bold">RESPOSTA CORRETA</span>
-                        </div>
-                        <div class="mt-2 p-2 bg-green-800 rounded-lg border border-green-400">
-                            <img src="${respostaOpcao}" alt="Resposta correta" class="imagem-questao max-w-full h-auto rounded-lg">
-                        </div>
-                    `;
-                } else {
-                    botaoCorreto.innerHTML = `
-                        <span class="inline-block w-8 h-8 bg-green-400 rounded-full text-center leading-8 mr-4">✓</span>
-                        ${questao.respostaCorreta}
-                    `;
-                }
+        // Destacar resposta correta
+        const botoes = opcoesResposta.querySelectorAll('.btn-resposta');
+        botoes.forEach(botao => {
+            const textoCompleto = botao.textContent || botao.innerText;
+            if (textoCompleto.includes(questaoAtual.respostaCorreta) || 
+                botao.querySelector('img')?.src === questaoAtual.respostaCorreta) {
+                botao.classList.add('correta');
             }
         });
     }
     
-    // Exibe a justificativa após um pequeno delay
-    setTimeout(() => {
-        exibirJustificativa(questao.justificativa);
-    }, 400);
+    // Desabilitar todos os botões
+    const todosBotoes = opcoesResposta.querySelectorAll('.btn-resposta');
+    todosBotoes.forEach(botao => {
+        botao.classList.add('desabilitado');
+        botao.style.cursor = 'not-allowed';
+    });
+    
+    // Mostrar justificativa e botão
+    textoJustificativa.textContent = questaoAtual.justificativa;
+    areaJustificativa.classList.remove('hidden');
+    areaBotaoProximo.classList.remove('hidden');
 }
 
 /**
