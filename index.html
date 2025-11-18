@@ -4,133 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz OLAP e ETL 2 - JAMES</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Configuração de cores customizadas */
-        :root {
-            --preto-profundo: #0a0a0a;
-            --vermelho-escuro: #8b0000;
-            --vermelho-neon: #ff0000;
-            --rosa-neon: #ff006e;
-        }
-        
-        /* Estilos base */
         body {
-            background: linear-gradient(to bottom right, var(--preto-profundo), var(--vermelho-escuro));
+            background: linear-gradient(to bottom right, #1a0000, #4a0000);
             min-height: 100vh;
-            color: white;
-            font-family: system-ui, -apple-system, sans-serif;
         }
-        
-        .hidden {
-            display: none !important;
-        }
-        
-        /* Container principal */
-        #app {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-        
-        /* Estilos personalizados para os links de imagem */
-        .link-imagem {
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
-        }
-        .link-imagem:hover {
-            box-shadow: 0 6px 20px rgba(255, 0, 110, 0.6);
-        }
-        
-        /* Animação suave para as imagens */
+        .hidden { display: none !important; }
         .imagem-questao {
-            transition: all 0.3s ease;
             max-height: 500px;
             object-fit: contain;
         }
-        .imagem-questao:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
-        }
-        
-        /* Animação de pulsação para loading */
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-        }
-        .animate-pulse {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        
-        /* Ajustes adicionais para melhorar visualização em mobile */
-        @media (max-width: 640px) {
-            #pergunta-texto {
-                line-height: 1.4;
-                letter-spacing: 0.01em;
-                font-size: 0.95rem;
-            }
-        }
     </style>
-    <script>
-        // Configuração do Tailwind
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'preto-profundo': '#0a0a0a',
-                        'vermelho-escuro': '#8b0000',
-                        'vermelho-neon': '#ff0000',
-                        'rosa-neon': '#ff006e'
-                    }
-                }
-            }
-        }
-    </script>
 </head>
-<body class="bg-gradient-to-br from-preto-profundo to-vermelho-escuro min-h-screen">
-    <!-- Container principal do jogo -->
-    <div id="app" class="container mx-auto px-4 py-8">
+<body class="min-h-screen text-white">
+    <div id="app" class="container mx-auto px-4 py-8 max-w-4xl">
         
         <!-- Menu inicial -->
         <div id="menu-inicial" class="text-center">
-            <!-- Título principal -->
-            <h1 class="text-4xl md:text-6xl font-bold text-vermelho-neon mb-4 drop-shadow-lg" style="text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);">
+            <h1 class="text-5xl md:text-6xl font-bold text-red-500 mb-4">
                 QUIZ OLAP e ETL 2 - JAMES
             </h1>
-            <p class="text-xl text-white mb-12 font-light">
-               Desevolvido por: Cadu Kar Alho
+            <p class="text-xl text-gray-300 mb-12">
+               Desenvolvido por: Cadu Kar Alho
             </p>
             
-            <!-- Botão de seleção de categoria -->
             <div class="flex justify-center max-w-md mx-auto">
-                <!-- Botão para questões UA -->
-                <button id="btn-ua" class="w-full bg-black/80 backdrop-blur-lg hover:bg-vermelho-neon/20 transition-all duration-300 rounded-2xl p-8 border-2 border-vermelho-neon shadow-2xl transform hover:scale-105 hover:shadow-3xl" style="box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);">
+                <button id="btn-ua" class="w-full bg-gray-900 hover:bg-red-900 transition-all duration-300 rounded-2xl p-8 border-2 border-red-600 shadow-2xl transform hover:scale-105">
                     <div class="text-6xl mb-4">🎓</div>
                     <h2 class="text-2xl font-bold text-white mb-3">Questões UA</h2>
-                    <p class="text-white/80 text-sm">Perguntas das Unidades de Aprendizagem</p>
+                    <p class="text-gray-400 text-sm">Perguntas das Unidades de Aprendizagem</p>
                 </button>
             </div>
         </div>
 
-        <!-- Tela do jogo (inicialmente oculta) -->
+        <!-- Tela do jogo -->
         <div id="tela-jogo" class="hidden">
-            <!-- Header com informações do jogo -->
-            <div class="bg-black/80 backdrop-blur-lg rounded-2xl p-6 mb-8 border-2 border-vermelho-neon" style="box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <!-- Informações da categoria e progresso -->
-                    <div class="text-white mb-4 md:mb-0">
-                        <h2 id="categoria-atual" class="text-2xl font-bold"></h2>
-                        <p id="contador-questao" class="text-white/80"></p>
+            <!-- Header -->
+            <div class="bg-gray-900 rounded-2xl p-6 mb-8 border-2 border-red-600">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <h2 id="categoria-atual" class="text-2xl font-bold text-white"></h2>
+                        <p id="contador-questao" class="text-gray-400"></p>
                     </div>
-                    
-                    <!-- Barra de progresso -->
                     <div class="w-full md:w-64">
-                        <div class="bg-black/60 rounded-full h-3 border border-vermelho-neon/50">
-                            <div id="barra-progresso" class="bg-gradient-to-r from-vermelho-neon to-rosa-neon h-3 rounded-full transition-all duration-500" style="box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);"></div>
+                        <div class="bg-gray-800 rounded-full h-3 border border-red-600">
+                            <div id="barra-progresso" class="bg-red-600 h-3 rounded-full transition-all duration-500"></div>
                         </div>
                         <p id="texto-progresso" class="text-white text-sm mt-2 text-center"></p>
                     </div>
@@ -138,46 +57,39 @@
             </div>
 
             <!-- Container da questão -->
-            <div class="bg-black/80 backdrop-blur-lg rounded-2xl p-4 md:p-8 border-2 border-vermelho-neon shadow-2xl" style="box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);">
-                <!-- Pergunta -->
+            <div class="bg-gray-900 rounded-2xl p-6 md:p-8 border-2 border-red-600">
                 <div class="mb-8">
-                    <h3 id="pergunta-texto" class="text-base md:text-xl font-semibold text-white leading-relaxed"></h3>
+                    <h3 id="pergunta-texto" class="text-lg md:text-xl font-semibold text-white leading-relaxed"></h3>
                 </div>
 
-                <!-- Opções de resposta -->
-                <div id="opcoes-resposta" class="space-y-4 mb-8">
-                    <!-- As opções serão inseridas dinamicamente pelo JavaScript -->
-                </div>
+                <div id="opcoes-resposta" class="space-y-4 mb-8"></div>
 
-                <!-- Botão para próxima questão -->
                 <div id="area-botao-proximo" class="hidden text-center">
-                    <button id="btn-proximo" class="bg-gradient-to-r from-vermelho-neon to-rosa-neon hover:from-vermelho-escuro hover:to-vermelho-neon text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg border-2 border-vermelho-neon" style="box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);">
+                    <button id="btn-proximo" class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105">
                         Próxima Questão
                     </button>
                 </div>
 
-                <!-- Área de justificativa -->
-                <div id="area-justificativa" class="hidden mt-8 p-6 bg-black/60 rounded-xl border-2 border-rosa-neon" style="box-shadow: 0 0 15px rgba(255, 0, 110, 0.3);">
+                <div id="area-justificativa" class="hidden mt-8 p-6 bg-gray-800 rounded-xl border-2 border-red-500">
                     <h4 class="text-lg font-semibold text-white mb-3">💡 Justificativa:</h4>
-                    <p id="texto-justificativa" class="text-white/90 leading-relaxed"></p>
+                    <p id="texto-justificativa" class="text-gray-300 leading-relaxed"></p>
                 </div>
             </div>
 
-            <!-- Botão para voltar ao menu -->
             <div class="text-center mt-8">
-                <button id="btn-voltar-menu" class="bg-black/80 hover:bg-vermelho-neon/30 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 border-2 border-vermelho-neon" style="box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);">
+                <button id="btn-voltar-menu" class="bg-gray-900 hover:bg-gray-800 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 border-2 border-red-600">
                     ← Voltar ao Menu
                 </button>
             </div>
         </div>
 
-        <!-- Tela de resultados finais -->
+        <!-- Tela de resultados -->
         <div id="tela-resultados" class="hidden text-center">
-            <div class="bg-black/80 backdrop-blur-lg rounded-2xl p-8 border-2 border-vermelho-neon shadow-2xl max-w-md mx-auto" style="box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);">
+            <div class="bg-gray-900 rounded-2xl p-8 border-2 border-red-600 max-w-md mx-auto">
                 <div class="text-6xl mb-6">🏆</div>
-                <h2 class="text-3xl font-bold text-vermelho-neon mb-4" style="text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);">Quiz Concluído!</h2>
+                <h2 class="text-3xl font-bold text-red-500 mb-4">Quiz Concluído!</h2>
                 <div id="resultado-final" class="text-xl text-white mb-6"></div>
-                <button id="btn-reiniciar" class="bg-gradient-to-r from-vermelho-neon to-rosa-neon hover:from-vermelho-escuro hover:to-vermelho-neon text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 border-2 border-vermelho-neon" style="box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);">
+                <button id="btn-reiniciar" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105">
                     Jogar Novamente
                 </button>
             </div>

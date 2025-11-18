@@ -177,17 +177,17 @@ function atualizarInterfaceJogo() {
         
         if (isImagemURL) {
             // Se for uma imagem, exibe a imagem diretamente
-            botaoResposta.className = 'w-full p-4 text-left bg-white/10 hover:bg-white/20 border-2 border-white/30 hover:border-vermelho-neon/50 rounded-xl transition-all duration-300 text-white font-medium';
+            botaoResposta.className = 'w-full p-4 text-left bg-gray-800 hover:bg-gray-700 border-2 border-gray-600 hover:border-red-500 rounded-xl transition-all duration-300 text-white font-medium';
             botaoResposta.innerHTML = `
                 <div class="flex items-center gap-3 mb-2">
-                    <span class="inline-block w-8 h-8 bg-white/20 rounded-full text-center leading-8">${String.fromCharCode(65 + index)}</span>
-                    <span class="text-sm text-white/80">Opção ${String.fromCharCode(65 + index)}</span>
+                    <span class="inline-block w-8 h-8 bg-gray-700 rounded-full text-center leading-8">${String.fromCharCode(65 + index)}</span>
+                    <span class="text-sm text-gray-400">Opção ${String.fromCharCode(65 + index)}</span>
                 </div>
-                <div class="mt-2 p-2 bg-black/40 rounded-lg">
-                    <img src="${resposta}" alt="Opção ${String.fromCharCode(65 + index)}" class="imagem-questao max-w-full h-auto rounded-lg border border-white/20" 
+                <div class="mt-2 p-2 bg-gray-900 rounded-lg">
+                    <img src="${resposta}" alt="Opção ${String.fromCharCode(65 + index)}" class="imagem-questao max-w-full h-auto rounded-lg border border-gray-700" 
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
                          onload="this.nextElementSibling.style.display='none';">
-                    <div style="display:block;" class="text-yellow-300 text-xs mt-2 flex items-center gap-2">
+                    <div style="display:block;" class="text-yellow-400 text-xs mt-2 flex items-center gap-2">
                         <span>⏳</span>
                         <span>Carregando imagem...</span>
                     </div>
@@ -195,9 +195,9 @@ function atualizarInterfaceJogo() {
             `;
         } else {
             // Resposta normal de texto
-            botaoResposta.className = 'w-full p-4 text-left bg-white/10 hover:bg-white/20 border border-white/30 rounded-xl transition-all duration-300 text-white font-medium';
+            botaoResposta.className = 'w-full p-4 text-left bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-xl transition-all duration-300 text-white font-medium';
             botaoResposta.innerHTML = `
-                <span class="inline-block w-8 h-8 bg-white/20 rounded-full text-center leading-8 mr-4">${String.fromCharCode(65 + index)}</span>
+                <span class="inline-block w-8 h-8 bg-gray-700 rounded-full text-center leading-8 mr-4">${String.fromCharCode(65 + index)}</span>
                 ${resposta}
             `;
         }
@@ -230,23 +230,21 @@ function selecionarResposta(resposta, elementoBotao) {
     const botoes = opcoesResposta.querySelectorAll('button');
     botoes.forEach(botao => {
         botao.disabled = true;
-        botao.classList.remove('hover:bg-white/20');
+        botao.classList.remove('hover:bg-gray-700');
     });
     
     // Aplica feedback visual baseado na resposta
     if (resposta === questao.respostaCorreta) {
-        // Resposta correta - feedback verde com efeito neon
-        elementoBotao.className = 'w-full p-4 text-left bg-green-500/80 border-2 border-green-400 rounded-xl text-white font-medium';
-        elementoBotao.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.6)';
+        // Resposta correta
+        elementoBotao.className = 'w-full p-4 text-left bg-green-600 border-2 border-green-400 rounded-xl text-white font-medium';
         
         if (isImagemURL) {
-            // Mantém a imagem visível com feedback verde
             elementoBotao.innerHTML = `
                 <div class="flex items-center gap-3 mb-2">
                     <span class="inline-block w-8 h-8 bg-green-400 rounded-full text-center leading-8">✓</span>
                     <span class="text-sm font-bold">RESPOSTA CORRETA!</span>
                 </div>
-                <div class="mt-2 p-2 bg-black/40 rounded-lg border border-green-400">
+                <div class="mt-2 p-2 bg-green-800 rounded-lg border border-green-400">
                     <img src="${resposta}" alt="Resposta correta" class="imagem-questao max-w-full h-auto rounded-lg">
                 </div>
             `;
@@ -258,18 +256,16 @@ function selecionarResposta(resposta, elementoBotao) {
         }
         pontuacao++;
     } else {
-        // Resposta incorreta - feedback vermelho com efeito neon
-        elementoBotao.className = 'w-full p-4 text-left bg-red-500/80 border-2 border-red-400 rounded-xl text-white font-medium';
-        elementoBotao.style.boxShadow = '0 0 20px rgba(239, 68, 68, 0.6)';
+        // Resposta incorreta
+        elementoBotao.className = 'w-full p-4 text-left bg-red-600 border-2 border-red-400 rounded-xl text-white font-medium';
         
         if (isImagemURL) {
-            // Mantém a imagem visível com feedback vermelho
             elementoBotao.innerHTML = `
                 <div class="flex items-center gap-3 mb-2">
                     <span class="inline-block w-8 h-8 bg-red-400 rounded-full text-center leading-8">✗</span>
                     <span class="text-sm font-bold">RESPOSTA INCORRETA</span>
                 </div>
-                <div class="mt-2 p-2 bg-black/40 rounded-lg border border-red-400">
+                <div class="mt-2 p-2 bg-red-800 rounded-lg border border-red-400">
                     <img src="${resposta}" alt="Resposta incorreta" class="imagem-questao max-w-full h-auto rounded-lg">
                 </div>
             `;
@@ -286,8 +282,7 @@ function selecionarResposta(resposta, elementoBotao) {
                 const botaoCorreto = botoes[index];
                 const isImagemCorretaURL = /^https?:\/\/.*\.(jpg|jpeg|png|gif|webp|svg)$/i.test(respostaOpcao.trim());
                 
-                botaoCorreto.className = 'w-full p-4 text-left bg-green-500/80 border-2 border-green-400 rounded-xl text-white font-medium';
-                botaoCorreto.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.6)';
+                botaoCorreto.className = 'w-full p-4 text-left bg-green-600 border-2 border-green-400 rounded-xl text-white font-medium';
                 
                 if (isImagemCorretaURL) {
                     botaoCorreto.innerHTML = `
@@ -295,7 +290,7 @@ function selecionarResposta(resposta, elementoBotao) {
                             <span class="inline-block w-8 h-8 bg-green-400 rounded-full text-center leading-8">✓</span>
                             <span class="text-sm font-bold">RESPOSTA CORRETA</span>
                         </div>
-                        <div class="mt-2 p-2 bg-black/40 rounded-lg border border-green-400">
+                        <div class="mt-2 p-2 bg-green-800 rounded-lg border border-green-400">
                             <img src="${respostaOpcao}" alt="Resposta correta" class="imagem-questao max-w-full h-auto rounded-lg">
                         </div>
                     `;
@@ -406,31 +401,28 @@ function voltarAoMenu() {
  * @returns {string} - HTML formatado com links clicáveis e imagens carregadas
  */
 function formatarPerguntaComLinks(pergunta) {
-    // Regex para detectar URLs
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     
-    // Substitui URLs por links clicáveis ou imagens
     let perguntaFormatada = pergunta.replace(urlRegex, (url) => {
-        // Verifica se é uma imagem
         const isImagem = /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(url);
         
         if (isImagem) {
             return `
-                <div class="my-4 p-4 bg-black/60 rounded-xl border-2 border-vermelho-neon/40" style="box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);">
+                <div class="my-4 p-4 bg-gray-800 rounded-xl border-2 border-red-600">
                     <div class="flex items-center gap-3 mb-3">
                         <span class="text-2xl">🖼️</span>
-                        <span class="text-vermelho-neon font-semibold" style="text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);">Imagem para análise:</span>
+                        <span class="text-red-500 font-semibold">Imagem para análise:</span>
                     </div>
-                    <div class="p-3 bg-black/40 rounded-lg border border-rosa-neon/30">
-                        <img src="${url}" alt="Imagem da questão" class="imagem-questao max-w-full h-auto rounded-lg border border-white/20" 
+                    <div class="p-3 bg-gray-900 rounded-lg border border-red-500">
+                        <img src="${url}" alt="Imagem da questão" class="imagem-questao max-w-full h-auto rounded-lg border border-gray-700" 
                              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
                              onload="this.nextElementSibling.style.display='none';">
-                        <div style="display:block;" class="text-yellow-300 text-sm mt-2 flex items-center gap-2 animate-pulse">
+                        <div style="display:block;" class="text-yellow-400 text-sm mt-2 flex items-center gap-2">
                             <span>⏳</span>
                             <span>Carregando imagem...</span>
                         </div>
                     </div>
-                    <a href="${url}" target="_blank" class="link-imagem inline-flex items-center gap-2 bg-vermelho-neon/20 hover:bg-vermelho-neon/30 text-vermelho-neon hover:text-rosa-neon px-4 py-2 rounded-lg border border-vermelho-neon/50 transition-all duration-300 transform hover:scale-105 mt-3" style="box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);">
+                    <a href="${url}" target="_blank" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 mt-3">
                         <span>📷</span>
                         <span>Abrir imagem em nova aba</span>
                         <span>🔗</span>
@@ -438,8 +430,7 @@ function formatarPerguntaComLinks(pergunta) {
                 </div>
             `;
         } else {
-            // Para outros tipos de links
-            return `<a href="${url}" target="_blank" class="text-vermelho-neon hover:text-rosa-neon underline transition-colors duration-300" style="text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);">🔗 ${url}</a>`;
+            return `<a href="${url}" target="_blank" class="text-red-500 hover:text-red-400 underline transition-colors duration-300">🔗 ${url}</a>`;
         }
     });
     
