@@ -17,6 +17,7 @@ let questaoAtual = 0; // Índice da questão atual
 let pontuacao = 0; // Pontuação do jogador
 let categoriaSelecionada = ''; // Categoria escolhida pelo usuário
 let respostaSelecionada = ''; // Resposta escolhida pelo usuário
+let respostaJaSelecionada = false; // ✅ ADICIONAR ESTA LINHA - Flag para controlar se já foi selecionada uma resposta
 
 // Elementos do DOM
 const menuInicial = document.getElementById('menu-inicial');
@@ -150,6 +151,9 @@ function iniciarJogo(categoria) {
 function atualizarInterfaceJogo() {
     const questao = questoesFiltradas[questaoAtual];
     
+    // ✅ RESETAR a flag de resposta selecionada
+    respostaJaSelecionada = false;
+    
     // Atualiza informações do cabeçalho
     categoriaAtual.textContent = `Categoria: ${categoriaSelecionada}`;
     contadorQuestao.textContent = `Questão ${questaoAtual + 1} de ${questoesFiltradas.length}`;
@@ -215,22 +219,38 @@ function renderizarResposta(resposta, index) {
         `;
     }
     
-    botaoResposta.addEventListener('click', () => selecionarResposta(resposta, botaoResposta));
+    // ✅ ARMAZENAR a resposta no dataset
+    botaoResposta.dataset.resposta = resposta;
+    
+    // ✅ ADICIONAR evento de clique
+    botaoResposta.addEventListener('click', function() {
+        selecionarResposta(resposta, botaoResposta);
+    });
+    
     return botaoResposta;
 }
 
 /**
  * SELEÇÃO DE RESPOSTA
  * Processa a resposta selecionada pelo usuário
- * @param {string} resposta - Resposta selecionada
- * @param {HTMLElement} elementoBotao - Elemento HTML do botão clicado
+ * @param {string} respostaSelecionadaParam - Resposta selecionada
+ * @param {HTMLElement} botaoClicado - Elemento HTML do botão clicado
  */
-function selecionarResposta(respostaSelecionada, botaoClicado) {
-    if (respostaJaSelecionada) return;
+function selecionarResposta(respostaSelecionadaParam, botaoClicado) {
+    // ✅ VERIFICAR se já foi selecionada uma resposta
+    if (respostaJaSelecionada) {
+        console.log('Resposta já foi selecionada');
+        return;
+    }
+    
+    console.log('Resposta selecionada:', respostaSelecionadaParam);
     
     respostaJaSelecionada = true;
-    const questaoAtual = questoesEmbaralhadas[indiceQuestaoAtual];
-    const acertou = respostaSelecionada === questaoAtual.respostaCorreta;
+    const questao = questoesFiltradas[questaoAtual]; // ✅ CORRIGIDO: usar questoesFiltradas e questaoAtual
+    const acertou = respostaSelecionadaParam === questao.respostaCorreta;
+    
+    console.log('Resposta correta:', questao.respostaCorreta);
+    console.log('Acertou?', acertou);
     
     // Desabilitar todos os botões primeiro
     const todosBotoes = opcoesResposta.querySelectorAll('.btn-resposta');
@@ -242,29 +262,23 @@ function selecionarResposta(respostaSelecionada, botaoClicado) {
     if (acertou) {
         pontuacao++;
         botaoClicado.classList.add('correta');
-        botaoClicado.classList.remove('incorreta');
+        console.log('Resposta correta! Pontuação:', pontuacao);
     } else {
         botaoClicado.classList.add('incorreta');
-        botaoClicado.classList.remove('correta');
+        console.log('Resposta incorreta!');
         
         // Encontrar e destacar a resposta correta
         todosBotoes.forEach(botao => {
-            // Pegar o conteúdo do botão (texto ou URL da imagem)
-            const imgElement = botao.querySelector('img');
-            const conteudoBotao = imgElement ? imgElement.src : botao.textContent.trim();
-            
-            // Remover a letra da opção do texto para comparação
-            const textoLimpo = botao.textContent.replace(/^[A-E]\s*/, '').trim();
-            
-            if (conteudoBotao === questaoAtual.respostaCorreta || textoLimpo === questaoAtual.respostaCorreta) {
+            const respostaBotao = botao.dataset.resposta;
+            if (respostaBotao === questao.respostaCorreta) {
                 botao.classList.add('correta');
-                botao.classList.remove('incorreta');
+                console.log('Destacando resposta correta');
             }
         });
     }
     
     // Mostrar justificativa e botão próximo
-    textoJustificativa.textContent = questaoAtual.justificativa;
+    textoJustificativa.textContent = questao.justificativa;
     areaJustificativa.classList.remove('hidden');
     areaBotaoProximo.classList.remove('hidden');
 }
