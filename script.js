@@ -169,11 +169,11 @@ function atualizarInterfaceJogo() {
     // Limpa opções anteriores
     opcoesResposta.innerHTML = '';
     
-    // Embaralha as respostas para apresentação aleatória
-    const respostasEmbaralhadas = embaralharArray(questao.respostas);
+    // ❌ REMOVIDO: Embaralhamento das respostas
+    // const respostasEmbaralhadas = embaralharArray(questao.respostas);
     
-    // Cria os botões de resposta
-    respostasEmbaralhadas.forEach((resposta, index) => {
+    // ✅ USAR respostas na ordem original do JSON
+    questao.respostas.forEach((resposta, index) => {
         const botaoResposta = renderizarResposta(resposta, index);
         opcoesResposta.appendChild(botaoResposta);
     });
